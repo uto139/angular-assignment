@@ -1,0 +1,6 @@
+@Enigmatry.AngularAssignment_HostAddress = http://localhost:5211
+
+GET {{Enigmatry.AngularAssignment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
