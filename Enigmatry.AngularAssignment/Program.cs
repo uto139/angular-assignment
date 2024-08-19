@@ -1,4 +1,5 @@
-﻿using Enigmatry.AngularAssignment.Models;
+﻿using Enigmatry.AngularAssignment.Api.Services;
+using Enigmatry.AngularAssignment.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IEnumerable<BlogPost>>();
+builder.Services.AddSingleton<List<BlogPost>>();
+builder.Services.AddSingleton<BlogService>();
 
 var app = builder.Build();
 
