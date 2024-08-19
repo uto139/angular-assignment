@@ -1,9 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '@app/core.module';
-import { AppInitService, initFactory } from '@app/services/app-init.service';
 import { EntryCommonModule } from '@enigmatry/entry-components/common';
 import { HomeModule } from '@features/home/home.module';
 import { EntryComponentsModule } from '@shared/entry-components.module';
@@ -28,14 +27,7 @@ import { AppComponent } from './app.component';
     EntryComponentsModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initFactory,
-      deps: [AppInitService],
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

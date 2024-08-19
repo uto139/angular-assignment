@@ -1,7 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { PermissionId } from '@api';
-import { PermissionService } from '@app/auth/permissions.service';
-import { UserProfile } from '@app/auth/user-profile';
 import { SizeService } from '@services/size.service';
 
 @Component({
@@ -10,15 +7,14 @@ import { SizeService } from '@services/size.service';
   styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent {
-  @Input() menuItems: { description: string; icon: string; aria: string; url: string; permission: PermissionId }[];
+  @Input() menuItems: { description: string; icon: string; aria: string; url: string }[];
   @Input() onHamburgerClick: () => void;
   @Input() onLogout: () => void;
-  @Input() show: (menuItem: { permission: PermissionId }) => void;
-  @Input() currentUser: UserProfile | null;
+  @Input() show: () => void;
 
   get showSideMenu(): boolean {
     return this.sizeService.lastKnownSize.supportsSideMenu;
   }
 
-  constructor(readonly sizeService: SizeService, readonly permissionService: PermissionService) { }
+  constructor(readonly sizeService: SizeService) { }
 }
