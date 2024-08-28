@@ -1,27 +1,28 @@
-<mat-toolbar class="main-menu">
-  <button type="button" class="item" aria-label="Toggle sidenav" mat-icon-button (click)="onHamburgerClick()"
-    *ngIf="showSideMenu">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button>
-  <a class="logo item clickable" mat-button [routerLink]="['/home']" routerLinkActive="router-link-active">
-    <img class="logo-image" src="/assets/images/logo.png" alt="Enigmatry Logo">
-  </a>
-  <nav class="content" *ngIf="!showSideMenu">
-    <div *ngFor="let menuItem of menuItems">
-      <button mat-button color="primary" class="item" [routerLink]="[menuItem.url]"
-        routerLinkActive="router-link-active" type="button">
-        <mat-icon class="icon" aria-hidden="false" [ariaLabel]="menuItem.aria" [fontIcon]="menuItem.icon"></mat-icon>
-        <span class="description">{{ menuItem.description }}</span>
-      </button>
-    </div>
-    <button mat-button data-testId="username-button" color="primary" class="user-item" [matMenuTriggerFor]="login_menu">
-      <span></span>
-      <mat-icon class="icon" aria-hidden="false" aria-label="Toggle icon" fontIcon="keyboard_arrow_down"></mat-icon>
+<mat-toolbar color="primary">
+  <span class="navbar-brand">My Blog</span>
+
+  <span class="spacer"></span>
+
+  <mat-form-field appearance="outline" class="navbar-search">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Search" />
+    <button mat-icon-button matSuffix aria-label="Search">
+      <mat-icon>search</mat-icon>
     </button>
-    <mat-menu class="main-user-actions" #login_menu="matMenu" [overlapTrigger]="false">
-      <button class="action" type="button" mat-button color="primary" (click)='onLogout()'>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
+  </mat-form-field>
+
+  <span class="spacer"></span>
+
+  <nav class="navbar-links">
+    <a mat-button routerLink="#">Link1</a>
+    <a mat-button routerLink="#">Link2</a>
+    <a mat-button routerLink="#">Link3</a>
   </nav>
+
+  <span class="spacer"></span>
+
+  <div class="navbar-profile">
+    <a mat-button routerLink="#">My Profile</a>
+    <a mat-button routerLink="#">Logout</a>
+  </div>
 </mat-toolbar>
