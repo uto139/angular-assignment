@@ -9,17 +9,13 @@ $navbar-height: 50px; // Adjust the height for a thinner navbar
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	height: $navbar-height; // Set height for thinner appearance
-	padding: 0 15px; // Adjust padding to reduce thickness
+	height: $navbar-height;
+	padding: 0 15px;
 	background-color: $navbar-background-color;
 	color: $navbar-text-color;
 
-	.spacer {
-		flex: 1 1 auto;
-	}
-
 	.navbar-brand {
-		margin-right: 20px;
+		margin-right: auto; // Move brand to the left
 		color: $navbar-text-color;
 		font-size: $navbar-brand-size;
 		font-weight: 700;
@@ -27,30 +23,39 @@ $navbar-height: 50px; // Adjust the height for a thinner navbar
 
 	.navbar-search {
 		width: $navbar-search-width;
-
+		margin-left: auto;
+    
 		input {
-			padding: 3px 7px; // Reduce padding inside the input for thinner design
+			padding: 3px 7px;
 			border: 1px solid $navbar-hover-color;
 			border-radius: 4px;
-			background-color: $navbar-background-color;
-			color: $navbar-text-color;
-			font-size: .9rem; // Adjust font size to match thinner appearance
+			background-color: #FFF; // Set background to white
+			color: #000; // Set text color to black for contrast
+			font-size: .9rem;
 		}
+    
+		button {
+			color: #000; // Ensure the search icon is visible
+		}
+	}
+
+	.navbar-links {
+		margin-left: 20px; // Adjust margin to space out links from the search bar
+	}
+
+	.navbar-profile {
+		margin-left: 20px; // Adjust margin to space out profile links from the navbar links
 	}
 
 	a {
 		margin-right: 15px;
 		color: $navbar-text-color;
-		font-size: .9rem; // Smaller font size for a thinner look
+		font-size: .9rem;
 		font-weight: 500;
 		text-decoration: none;
 
 		&:hover {
 			color: $navbar-hover-color;
 		}
-	}
-
-	.navbar-profile a {
-		margin-left: 15px;
 	}
 }
