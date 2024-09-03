@@ -1,6 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
-import { SizeService } from '@services/size.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -8,25 +6,7 @@ import { SizeService } from '@services/size.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  @ViewChild('drawer') drawer: MatSidenav;
-
   menuItems = [
     { description: 'Home', icon: 'home', aria: 'Home icon', url: '/home' }
   ];
-
-  get menuRole(): 'dialog' | 'navigation' {
-    if (this.sizeService.lastKnownSize.supportsSideMenu) {
-      return 'navigation';
-    }
-
-    this.drawer?.close();
-    return 'dialog';
-  }
-
-  constructor(
-    readonly sizeService: SizeService) { }
-
-  toggleDrawer = () => {
-    this.drawer.toggle();
-  };
 }

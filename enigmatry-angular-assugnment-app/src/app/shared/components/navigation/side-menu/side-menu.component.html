@@ -1,18 +1,6 @@
-<mat-toolbar class="header">Menu</mat-toolbar>
-<mat-nav-list class="navigation-list" role="navigation">
-  <div *ngFor="let menuItem of menuItems">
-    <mat-list-item class="item" [routerLink]="[menuItem.url]"
-      routerLinkActive="router-link-active">
-      <mat-icon class="icon" aria-hidden="false" [ariaLabel]="menuItem.aria" [fontIcon]="menuItem.icon"></mat-icon>
-      <span class="description">{{ menuItem.description }}</span>
-    </mat-list-item>
-  </div>
-  <mat-list-item class="item user-item" (click)="toggleUserActions($event)">
-    <mat-icon class="icon" aria-hidden="false" aria-label="Toggle icon"
-      [fontIcon]="showUserActions ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"></mat-icon>
-    <span class="description"></span>
-  </mat-list-item>
-  <mat-list-item class="item" *ngIf="showUserActions" (click)='onLogout()'>
-    <span class="description">Logout</span>
+<mat-nav-list>
+  <h3>Blog categories</h3>
+  <mat-list-item *ngFor="let category of categories">
+    <a>{{category.description| json}}</a>
   </mat-list-item>
 </mat-nav-list>

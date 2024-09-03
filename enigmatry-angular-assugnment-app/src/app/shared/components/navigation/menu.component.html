@@ -1,10 +1,10 @@
-<mat-sidenav-container class="navigation-container" [hasBackdrop]="true" color="primary">
-  <mat-sidenav #drawer class="side-menu" fixedInViewport (click)="toggleDrawer()" [attr.role]="menuRole"
-    mode="over">
-    <app-side-menu [menuItems]="menuItems"></app-side-menu>
+<mat-sidenav-container class="navigation-container" fixedInViewport [hasBackdrop]="false" color="primary">
+  <mat-sidenav #drawer class="side-menu" mode="over" opened="true">
+    <p>Sidenav content here</p>
+    <app-side-menu [categories]="menuItems"></app-side-menu>
   </mat-sidenav>
   <mat-sidenav-content class="navigation-content">
-    <app-main-menu [menuItems]="menuItems" [onHamburgerClick]="toggleDrawer"></app-main-menu>
+    <app-main-menu [menuItems]="menuItems"></app-main-menu>
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>
