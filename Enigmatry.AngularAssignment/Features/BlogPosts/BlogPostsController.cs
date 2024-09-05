@@ -2,29 +2,36 @@
 using Enigmatry.AngularAssignment.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Enigmatry.AngularAssignment.Controllers
+namespace Enigmatry.AngularAssignment.Api.Features.BlogPosts
 {
     [ApiController]
     [Route("[controller]")]
     public class BlogPostsController : ControllerBase
     {
         private readonly ILogger<BlogPostsController> _logger;
-        private readonly BlogService _blogService;
+        private readonly BlogPostService _blogService;
 
-        public BlogPostsController(ILogger<BlogPostsController> logger, BlogService blogService)
+        public BlogPostsController(ILogger<BlogPostsController> logger, BlogPostService blogService)
         {
             _logger = logger;
             _blogService = blogService;
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<BlogPost>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<BlogPost>>> Get()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<GetBlogPosts.Response>>> GetAll()
         {
-            var blogPosts = await _blogService.GetBlogPosts();
+            var blogPosts = await _blogService.GetAll();
             return Ok(blogPosts);
         }
 
+        [HttpGet("get-by-id")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<GetBlogPosts.Response>> Get()
+        {
+            var blogPosts = await _blogService.GetAll();
+            return Ok(blogPosts.FirstOrDefault());
+        }
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -58,7 +65,7 @@ namespace Enigmatry.AngularAssignment.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var blogPost = await _blogService.GetBlogPosts();
+            var blogPost = await _blogService.GetAll();
             if (blogPost.All(x => x.Id != id))
             {
                 return NotFound();

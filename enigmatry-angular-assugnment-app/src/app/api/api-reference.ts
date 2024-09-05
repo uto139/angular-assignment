@@ -19,12 +19,16 @@ export interface IClient {
     /**
      * @return Success
      */
-    blogPostsAll(): Observable<BlogPost[]>;
+    blogPostsAll(): Observable<Response[]>;
     /**
      * @param body (optional) 
      * @return Created
      */
     blogPostsPOST(body: BlogPost | undefined): Observable<void>;
+    /**
+     * @return Success
+     */
+    getById(): Observable<Response>;
     /**
      * @param body (optional) 
      * @return No Content
@@ -52,7 +56,7 @@ export class Client implements IClient {
     /**
      * @return Success
      */
-    blogPostsAll(): Observable<BlogPost[]> {
+    blogPostsAll(): Observable<Response[]> {
         let url_ = this.baseUrl + "/BlogPosts";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -71,14 +75,14 @@ export class Client implements IClient {
                 try {
                     return this.processBlogPostsAll(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<BlogPost[]>;
+                    return _observableThrow(e) as any as Observable<Response[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<BlogPost[]>;
+                return _observableThrow(response_) as any as Observable<Response[]>;
         }));
     }
 
-    protected processBlogPostsAll(response: HttpResponseBase): Observable<BlogPost[]> {
+    protected processBlogPostsAll(response: HttpResponseBase): Observable<Response[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -92,7 +96,7 @@ export class Client implements IClient {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(BlogPost.fromJS(item));
+                    result200!.push(Response.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -157,6 +161,57 @@ export class Client implements IClient {
             let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result400 = ProblemDetails.fromJS(resultData400);
             return throwException("Bad Request", status, _responseText, _headers, result400);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getById(): Observable<Response> {
+        let url_ = this.baseUrl + "/BlogPosts/get-by-id";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetById(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Response>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Response>;
+        }));
+    }
+
+    protected processGetById(response: HttpResponseBase): Observable<Response> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Response.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -290,6 +345,9 @@ export class BlogPost implements IBlogPost {
     id?: string;
     title?: string | undefined;
     text?: string | undefined;
+    mainImage?: string | undefined;
+    attachmentImages?: string[] | undefined;
+    readonly createdOn?: Date;
     categories?: BlogPostCategory[] | undefined;
 
     constructor(data?: IBlogPost) {
@@ -306,6 +364,13 @@ export class BlogPost implements IBlogPost {
             this.id = _data["id"];
             this.title = _data["title"];
             this.text = _data["text"];
+            this.mainImage = _data["mainImage"];
+            if (Array.isArray(_data["attachmentImages"])) {
+                this.attachmentImages = [] as any;
+                for (let item of _data["attachmentImages"])
+                    this.attachmentImages!.push(item);
+            }
+            (<any>this).createdOn = _data["createdOn"] ? new Date(_data["createdOn"].toString()) : <any>undefined;
             if (Array.isArray(_data["categories"])) {
                 this.categories = [] as any;
                 for (let item of _data["categories"])
@@ -326,6 +391,13 @@ export class BlogPost implements IBlogPost {
         data["id"] = this.id;
         data["title"] = this.title;
         data["text"] = this.text;
+        data["mainImage"] = this.mainImage;
+        if (Array.isArray(this.attachmentImages)) {
+            data["attachmentImages"] = [];
+            for (let item of this.attachmentImages)
+                data["attachmentImages"].push(item);
+        }
+        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
         if (Array.isArray(this.categories)) {
             data["categories"] = [];
             for (let item of this.categories)
@@ -339,6 +411,9 @@ export interface IBlogPost {
     id?: string;
     title?: string | undefined;
     text?: string | undefined;
+    mainImage?: string | undefined;
+    attachmentImages?: string[] | undefined;
+    createdOn?: Date;
     categories?: BlogPostCategory[] | undefined;
 }
 
@@ -411,6 +486,82 @@ export interface IProblemDetails {
     instance?: string | undefined;
 
     [key: string]: any;
+}
+
+export class Response implements IResponse {
+    id?: string;
+    title?: string | undefined;
+    text?: string | undefined;
+    mainImage?: string | undefined;
+    attachmentImages?: string[] | undefined;
+    readonly createdOn?: Date;
+    categories?: BlogPostCategory[] | undefined;
+
+    constructor(data?: IResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.title = _data["title"];
+            this.text = _data["text"];
+            this.mainImage = _data["mainImage"];
+            if (Array.isArray(_data["attachmentImages"])) {
+                this.attachmentImages = [] as any;
+                for (let item of _data["attachmentImages"])
+                    this.attachmentImages!.push(item);
+            }
+            (<any>this).createdOn = _data["createdOn"] ? new Date(_data["createdOn"].toString()) : <any>undefined;
+            if (Array.isArray(_data["categories"])) {
+                this.categories = [] as any;
+                for (let item of _data["categories"])
+                    this.categories!.push(item);
+            }
+        }
+    }
+
+    static fromJS(data: any): Response {
+        data = typeof data === 'object' ? data : {};
+        let result = new Response();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["title"] = this.title;
+        data["text"] = this.text;
+        data["mainImage"] = this.mainImage;
+        if (Array.isArray(this.attachmentImages)) {
+            data["attachmentImages"] = [];
+            for (let item of this.attachmentImages)
+                data["attachmentImages"].push(item);
+        }
+        data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
+        if (Array.isArray(this.categories)) {
+            data["categories"] = [];
+            for (let item of this.categories)
+                data["categories"].push(item);
+        }
+        return data;
+    }
+}
+
+export interface IResponse {
+    id?: string;
+    title?: string | undefined;
+    text?: string | undefined;
+    mainImage?: string | undefined;
+    attachmentImages?: string[] | undefined;
+    createdOn?: Date;
+    categories?: BlogPostCategory[] | undefined;
 }
 
 export class ApiException extends Error {

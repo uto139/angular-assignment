@@ -1,18 +1,22 @@
-﻿using Enigmatry.AngularAssignment.Models;
+﻿using AutoMapper;
+using Enigmatry.AngularAssignment.Api.Features.BlogPosts;
+using Enigmatry.AngularAssignment.Models;
 using System.Linq;
 
 namespace Enigmatry.AngularAssignment.Api.Services;
 
-public class BlogService
+public class BlogPostService
 {
     private readonly List<BlogPost> _blogPosts;
-
-    public BlogService(List<BlogPost> blogPosts)
+    private readonly IMapper _mapper;
+    public BlogPostService(List<BlogPost> blogPosts, IMapper mapper)
     {
         _blogPosts = blogPosts;
+        _mapper = mapper;
     }
 
-    public Task<List<BlogPost>> GetBlogPosts() => Task.FromResult(_blogPosts);
+    public Task<List<GetBlogPosts.Response>> GetAll() => 
+        Task.FromResult(_mapper.Map<List<BlogPost>, List<GetBlogPosts.Response>>(_blogPosts));
 
     public Task Create(BlogPost blogPost)
     {
