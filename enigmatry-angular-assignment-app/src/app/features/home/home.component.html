@@ -1,5 +1,5 @@
 <section>
-  <app-blog-post></app-blog-post>
-  <h1 class="mat-headline-3 align-center">HOME PAGE</h1>
-  <p>This application serves as the blueprint for new applications. It gives answers to many how-to questions because best practices for all stacks were applied.</p>
+  <section *ngFor="let item of posts">
+    <app-blog-post [post]="item"></app-blog-post>
+  </section>
 </section>
