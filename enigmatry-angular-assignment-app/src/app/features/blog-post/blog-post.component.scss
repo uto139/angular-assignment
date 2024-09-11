@@ -2,14 +2,12 @@
 	max-width: 800px;
 	margin: 20px auto;
 	padding: 20px;
-	border-radius: 8px; // Rounded corners for Material Design
-	background-color: #F5F5F5; // Slightly lighter for a Material feel
-	box-shadow: 0 2px 4px rgb(0 0 0 / .1);
-  
+	border-radius: 8px;
+
 	.header {
 		display: flex;
 		align-items: center;
-		justify-content: space-between; // Align elements in the header
+		justify-content: space-between;
   
 		.thumbnail {
 			width: 80px;
@@ -18,23 +16,23 @@
 			border-radius: 5px;
 			object-fit: cover;
 		}
+	}
   
-		.post-details {
-			flex-grow: 1;
-		}
+	.post-details {
+		flex-grow: 1;
   
 		.post-meta {
 			color: #777;
 			font-size: 12px;
 		}
-  
-		.post-actions {
-			display: flex;
-			gap: 10px; // Space between buttons
-		}
 	}
-  
-	.excerpt {
+
+	.post-actions {
+		display: flex;
+		gap: 10px;
+	}
+
+	.text {
 		margin-bottom: 20px;
 		font-size: 14px;
 		line-height: 1.5;
@@ -50,9 +48,5 @@
 			object-fit: cover;
 			border-radius: 5px;
 		}
-	}
-
-	.button {
-		color: #000;
 	}
 }

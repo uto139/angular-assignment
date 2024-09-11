@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Client, Response } from '@api';
@@ -6,12 +6,12 @@ import { Client, Response } from '@api';
 @Component({
   selector: 'app-blog-post',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgFor],
   templateUrl: './blog-post.component.html',
-  styleUrl: './blog-post.component.scss'
+  styleUrls: ['./blog-post.component.scss']
 })
 export class BlogPostComponent implements OnInit {
-  post: Response;
+  posts: Response[] = [];
 
   constructor(
     private client: Client,
@@ -20,13 +20,11 @@ export class BlogPostComponent implements OnInit {
 
   ngOnInit(): void {
     this.client.blogPostsAll().subscribe((data: any[]) => {
-      this.post = {
-        ...data[0],
-        mainImage: this.sanitizeImage(data[0].mainImage),
-        attachmentImages: data[0].attachmentImages.map((image: string) =>
-          this.sanitizeImage(image)
-        )
-      };
+      // Sanitize images for each post
+      this.posts = data.map(post => ({
+        ...post,
+        mainImage: this.sanitizeImage(post.mainImage)
+      }));
     });
   }
 
