@@ -1,4 +1,4 @@
-﻿namespace Enigmatry.AngularAssignment.Api.Models;
+﻿namespace Enigmatry.AngularAssignment.Api.Models.BlogPosts;
 
 public enum BlogPostCategory
 {

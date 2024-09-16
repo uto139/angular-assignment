@@ -1,6 +1,4 @@
-﻿using Enigmatry.AngularAssignment.Api.Models;
-
-namespace Enigmatry.AngularAssignment.Models;
+﻿namespace Enigmatry.AngularAssignment.Api.Models.BlogPosts;
 
 public class BlogPost
 {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Enigmatry.AngularAssignment.Api.Features.BlogPosts;
-using Enigmatry.AngularAssignment.Models;
+using Enigmatry.AngularAssignment.Api.Models.BlogPosts;
 using System.Linq;
 
-namespace Enigmatry.AngularAssignment.Api.Services;
+namespace Enigmatry.AngularAssignment.Api.Services.BlogPosts;
 
 public class BlogPostService
 {
@@ -15,7 +15,7 @@ public class BlogPostService
         _mapper = mapper;
     }
 
-    public Task<List<GetBlogPosts.Response>> GetAll() => 
+    public Task<List<GetBlogPosts.Response>> GetAll() =>
         Task.FromResult(_mapper.Map<List<BlogPost>, List<GetBlogPosts.Response>>(_blogPosts));
 
     public Task Create(BlogPost blogPost)

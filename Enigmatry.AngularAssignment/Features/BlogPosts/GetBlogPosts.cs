@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Enigmatry.AngularAssignment.Api.Models;
-using Enigmatry.AngularAssignment.Models;
+using Enigmatry.AngularAssignment.Api.Models.BlogPosts;
 using JetBrains.Annotations;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using String = System.String;

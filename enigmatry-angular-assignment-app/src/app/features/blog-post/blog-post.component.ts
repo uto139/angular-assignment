@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Response } from '@api';
+import { GetBlogPostsResponse } from '@api';
 
 @Component({
   selector: 'app-blog-post',
@@ -8,5 +8,5 @@ import { Response } from '@api';
 })
 
 export class BlogPostComponent {
-  @Input() post: Response;
+  @Input() post: GetBlogPostsResponse;
 }

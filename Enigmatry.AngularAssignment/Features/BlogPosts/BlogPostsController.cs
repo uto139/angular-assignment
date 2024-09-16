@@ -1,10 +1,11 @@
-﻿using Enigmatry.AngularAssignment.Api.Services;
-using Enigmatry.AngularAssignment.Models;
+﻿using Enigmatry.AngularAssignment.Api.Models.BlogPosts;
+using Enigmatry.AngularAssignment.Api.Services.BlogPosts;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace Enigmatry.AngularAssignment.Api.Features.BlogPosts
 {
-    [ApiController]
+    [Produces(MediaTypeNames.Application.Json)]
     [Route("[controller]")]
     public class BlogPostsController : ControllerBase
     {

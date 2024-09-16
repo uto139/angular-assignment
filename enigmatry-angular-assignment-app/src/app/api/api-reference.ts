@@ -19,7 +19,7 @@ export interface IClient {
     /**
      * @return Success
      */
-    blogPostsAll(): Observable<Response[]>;
+    blogPostsAll(): Observable<GetBlogPostsResponse[]>;
     /**
      * @param body (optional) 
      * @return Created
@@ -28,7 +28,7 @@ export interface IClient {
     /**
      * @return Success
      */
-    getById(): Observable<Response>;
+    getById(): Observable<GetBlogPostsResponse>;
     /**
      * @param body (optional) 
      * @return No Content
@@ -38,6 +38,10 @@ export interface IClient {
      * @return No Content
      */
     blogPostsDELETE(id: string): Observable<void>;
+    /**
+     * @return Success
+     */
+    users(): Observable<GetProfileResponse>;
 }
 
 @Injectable({
@@ -56,7 +60,7 @@ export class Client implements IClient {
     /**
      * @return Success
      */
-    blogPostsAll(): Observable<Response[]> {
+    blogPostsAll(): Observable<GetBlogPostsResponse[]> {
         let url_ = this.baseUrl + "/BlogPosts";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -64,7 +68,7 @@ export class Client implements IClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "text/plain"
+                "Accept": "application/json"
             })
         };
 
@@ -75,14 +79,14 @@ export class Client implements IClient {
                 try {
                     return this.processBlogPostsAll(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<Response[]>;
+                    return _observableThrow(e) as any as Observable<GetBlogPostsResponse[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Response[]>;
+                return _observableThrow(response_) as any as Observable<GetBlogPostsResponse[]>;
         }));
     }
 
-    protected processBlogPostsAll(response: HttpResponseBase): Observable<Response[]> {
+    protected processBlogPostsAll(response: HttpResponseBase): Observable<GetBlogPostsResponse[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -96,7 +100,7 @@ export class Client implements IClient {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(Response.fromJS(item));
+                    result200!.push(GetBlogPostsResponse.fromJS(item));
             }
             else {
                 result200 = <any>null;
@@ -157,10 +161,7 @@ export class Client implements IClient {
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result400: any = null;
-            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = ProblemDetails.fromJS(resultData400);
-            return throwException("Bad Request", status, _responseText, _headers, result400);
+            return throwException("Bad Request", status, _responseText, _headers);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -173,7 +174,7 @@ export class Client implements IClient {
     /**
      * @return Success
      */
-    getById(): Observable<Response> {
+    getById(): Observable<GetBlogPostsResponse> {
         let url_ = this.baseUrl + "/BlogPosts/get-by-id";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -181,7 +182,7 @@ export class Client implements IClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Accept": "text/plain"
+                "Accept": "application/json"
             })
         };
 
@@ -192,14 +193,14 @@ export class Client implements IClient {
                 try {
                     return this.processGetById(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<Response>;
+                    return _observableThrow(e) as any as Observable<GetBlogPostsResponse>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Response>;
+                return _observableThrow(response_) as any as Observable<GetBlogPostsResponse>;
         }));
     }
 
-    protected processGetById(response: HttpResponseBase): Observable<Response> {
+    protected processGetById(response: HttpResponseBase): Observable<GetBlogPostsResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -210,7 +211,7 @@ export class Client implements IClient {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = Response.fromJS(resultData200);
+            result200 = GetBlogPostsResponse.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -270,10 +271,7 @@ export class Client implements IClient {
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result400: any = null;
-            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = ProblemDetails.fromJS(resultData400);
-            return throwException("Bad Request", status, _responseText, _headers, result400);
+            return throwException("Bad Request", status, _responseText, _headers);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -327,10 +325,58 @@ export class Client implements IClient {
             }));
         } else if (status === 404) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result404: any = null;
-            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result404 = ProblemDetails.fromJS(resultData404);
-            return throwException("Not Found", status, _responseText, _headers, result404);
+            return throwException("Not Found", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    users(): Observable<GetProfileResponse> {
+        let url_ = this.baseUrl + "/Users";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUsers(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUsers(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetProfileResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetProfileResponse>;
+        }));
+    }
+
+    protected processUsers(response: HttpResponseBase): Observable<GetProfileResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetProfileResponse.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -424,71 +470,7 @@ export enum BlogPostCategory {
     _3 = 3,
 }
 
-export class ProblemDetails implements IProblemDetails {
-    type?: string | undefined;
-    title?: string | undefined;
-    status?: number | undefined;
-    detail?: string | undefined;
-    instance?: string | undefined;
-
-    [key: string]: any;
-
-    constructor(data?: IProblemDetails) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            for (var property in _data) {
-                if (_data.hasOwnProperty(property))
-                    this[property] = _data[property];
-            }
-            this.type = _data["type"];
-            this.title = _data["title"];
-            this.status = _data["status"];
-            this.detail = _data["detail"];
-            this.instance = _data["instance"];
-        }
-    }
-
-    static fromJS(data: any): ProblemDetails {
-        data = typeof data === 'object' ? data : {};
-        let result = new ProblemDetails();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        for (var property in this) {
-            if (this.hasOwnProperty(property))
-                data[property] = this[property];
-        }
-        data["type"] = this.type;
-        data["title"] = this.title;
-        data["status"] = this.status;
-        data["detail"] = this.detail;
-        data["instance"] = this.instance;
-        return data;
-    }
-}
-
-export interface IProblemDetails {
-    type?: string | undefined;
-    title?: string | undefined;
-    status?: number | undefined;
-    detail?: string | undefined;
-    instance?: string | undefined;
-
-    [key: string]: any;
-}
-
-export class Response implements IResponse {
+export class GetBlogPostsResponse implements IGetBlogPostsResponse {
     id?: string;
     title?: string | undefined;
     text?: string | undefined;
@@ -497,7 +479,7 @@ export class Response implements IResponse {
     readonly createdOn?: Date;
     categories?: BlogPostCategory[] | undefined;
 
-    constructor(data?: IResponse) {
+    constructor(data?: IGetBlogPostsResponse) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -526,9 +508,9 @@ export class Response implements IResponse {
         }
     }
 
-    static fromJS(data: any): Response {
+    static fromJS(data: any): GetBlogPostsResponse {
         data = typeof data === 'object' ? data : {};
-        let result = new Response();
+        let result = new GetBlogPostsResponse();
         result.init(data);
         return result;
     }
@@ -554,7 +536,7 @@ export class Response implements IResponse {
     }
 }
 
-export interface IResponse {
+export interface IGetBlogPostsResponse {
     id?: string;
     title?: string | undefined;
     text?: string | undefined;
@@ -562,6 +544,50 @@ export interface IResponse {
     attachmentImages?: string[] | undefined;
     createdOn?: Date;
     categories?: BlogPostCategory[] | undefined;
+}
+
+export class GetProfileResponse implements IGetProfileResponse {
+    userId?: string;
+    name?: string | undefined;
+    email?: string | undefined;
+
+    constructor(data?: IGetProfileResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.userId = _data["userId"];
+            this.name = _data["name"];
+            this.email = _data["email"];
+        }
+    }
+
+    static fromJS(data: any): GetProfileResponse {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetProfileResponse();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["name"] = this.name;
+        data["email"] = this.email;
+        return data;
+    }
+}
+
+export interface IGetProfileResponse {
+    userId?: string;
+    name?: string | undefined;
+    email?: string | undefined;
 }
 
 export class ApiException extends Error {

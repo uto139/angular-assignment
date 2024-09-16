@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Client, Response } from '@api';
+import { Client, GetBlogPostsResponse } from '@api';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +8,7 @@ import { Client, Response } from '@api';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  posts: Response[];
+  posts: GetBlogPostsResponse[];
 
   constructor(
     private client: Client,
@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.client.blogPostsAll().subscribe((data: any[]) => {
       // Sanitize images for each post
-      debugger;
       this.posts = data;
     });
   }
