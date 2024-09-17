@@ -464,10 +464,10 @@ export interface IBlogPost {
 }
 
 export enum BlogPostCategory {
-    _0 = 0,
-    _1 = 1,
-    _2 = 2,
-    _3 = 3,
+    Marketing = 0,
+    Sales = 1,
+    Service = 2,
+    Website = 3,
 }
 
 export class GetBlogPostsResponse implements IGetBlogPostsResponse {

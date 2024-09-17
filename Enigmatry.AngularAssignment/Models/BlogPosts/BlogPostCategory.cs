@@ -1,4 +1,6 @@
-﻿namespace Enigmatry.AngularAssignment.Api.Models.BlogPosts;
+﻿using System.Text.Json.Serialization;
+
+namespace Enigmatry.AngularAssignment.Api.Models.BlogPosts;
 
 public enum BlogPostCategory
 {

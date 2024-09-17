@@ -13,7 +13,7 @@
     </div>
   </div>
   <p class="text">
-    {{[post.text]}}
+    {{post.text}}
   </p>
   <div class="image-gallery" *ngIf="post.attachmentImages && post.attachmentImages.length > 0">
     <img class="gallery-item" *ngFor="let image of post.attachmentImages" [src]="image" [alt]="image" />
