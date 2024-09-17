@@ -6,7 +6,7 @@ using System.Net.Mime;
 namespace Enigmatry.AngularAssignment.Api.Features.BlogPosts
 {
     [Produces(MediaTypeNames.Application.Json)]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BlogPostsController : ControllerBase
     {
         private readonly ILogger<BlogPostsController> _logger;

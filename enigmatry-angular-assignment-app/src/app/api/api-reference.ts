@@ -15,39 +15,35 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
-export interface IClient {
+export interface IBlogPostsClient {
     /**
      * @return Success
      */
-    blogPostsAll(): Observable<GetBlogPostsResponse[]>;
+    getAll(): Observable<GetBlogPostsResponse[]>;
     /**
      * @param body (optional) 
      * @return Created
      */
-    blogPostsPOST(body: BlogPost | undefined): Observable<void>;
+    create(body: BlogPost | undefined): Observable<void>;
     /**
      * @return Success
      */
-    getById(): Observable<GetBlogPostsResponse>;
+    get(): Observable<GetBlogPostsResponse>;
     /**
      * @param body (optional) 
      * @return No Content
      */
-    blogPostsPUT(id: string, body: BlogPost | undefined): Observable<void>;
+    update(id: string, body: BlogPost | undefined): Observable<void>;
     /**
      * @return No Content
      */
-    blogPostsDELETE(id: string): Observable<void>;
-    /**
-     * @return Success
-     */
-    users(): Observable<GetProfileResponse>;
+    delete(id: string): Observable<void>;
 }
 
 @Injectable({
     providedIn: 'root'
 })
-export class Client implements IClient {
+export class BlogPostsClient implements IBlogPostsClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -60,8 +56,8 @@ export class Client implements IClient {
     /**
      * @return Success
      */
-    blogPostsAll(): Observable<GetBlogPostsResponse[]> {
-        let url_ = this.baseUrl + "/BlogPosts";
+    getAll(): Observable<GetBlogPostsResponse[]> {
+        let url_ = this.baseUrl + "/api/BlogPosts";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -73,11 +69,11 @@ export class Client implements IClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processBlogPostsAll(response_);
+            return this.processGetAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processBlogPostsAll(response_ as any);
+                    return this.processGetAll(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<GetBlogPostsResponse[]>;
                 }
@@ -86,7 +82,7 @@ export class Client implements IClient {
         }));
     }
 
-    protected processBlogPostsAll(response: HttpResponseBase): Observable<GetBlogPostsResponse[]> {
+    protected processGetAll(response: HttpResponseBase): Observable<GetBlogPostsResponse[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -119,8 +115,8 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return Created
      */
-    blogPostsPOST(body: BlogPost | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/BlogPosts";
+    create(body: BlogPost | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/BlogPosts";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -135,11 +131,11 @@ export class Client implements IClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processBlogPostsPOST(response_);
+            return this.processCreate(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processBlogPostsPOST(response_ as any);
+                    return this.processCreate(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -148,7 +144,7 @@ export class Client implements IClient {
         }));
     }
 
-    protected processBlogPostsPOST(response: HttpResponseBase): Observable<void> {
+    protected processCreate(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -174,8 +170,8 @@ export class Client implements IClient {
     /**
      * @return Success
      */
-    getById(): Observable<GetBlogPostsResponse> {
-        let url_ = this.baseUrl + "/BlogPosts/get-by-id";
+    get(): Observable<GetBlogPostsResponse> {
+        let url_ = this.baseUrl + "/api/BlogPosts/get-by-id";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -187,11 +183,11 @@ export class Client implements IClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetById(response_);
+            return this.processGet(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetById(response_ as any);
+                    return this.processGet(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<GetBlogPostsResponse>;
                 }
@@ -200,7 +196,7 @@ export class Client implements IClient {
         }));
     }
 
-    protected processGetById(response: HttpResponseBase): Observable<GetBlogPostsResponse> {
+    protected processGet(response: HttpResponseBase): Observable<GetBlogPostsResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -226,8 +222,8 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return No Content
      */
-    blogPostsPUT(id: string, body: BlogPost | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/BlogPosts/{id}";
+    update(id: string, body: BlogPost | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/BlogPosts/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -245,11 +241,11 @@ export class Client implements IClient {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processBlogPostsPUT(response_);
+            return this.processUpdate(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processBlogPostsPUT(response_ as any);
+                    return this.processUpdate(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -258,7 +254,7 @@ export class Client implements IClient {
         }));
     }
 
-    protected processBlogPostsPUT(response: HttpResponseBase): Observable<void> {
+    protected processUpdate(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -284,8 +280,8 @@ export class Client implements IClient {
     /**
      * @return No Content
      */
-    blogPostsDELETE(id: string): Observable<void> {
-        let url_ = this.baseUrl + "/BlogPosts/{id}";
+    delete(id: string): Observable<void> {
+        let url_ = this.baseUrl + "/api/BlogPosts/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -299,11 +295,11 @@ export class Client implements IClient {
         };
 
         return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processBlogPostsDELETE(response_);
+            return this.processDelete(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processBlogPostsDELETE(response_ as any);
+                    return this.processDelete(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -312,7 +308,7 @@ export class Client implements IClient {
         }));
     }
 
-    protected processBlogPostsDELETE(response: HttpResponseBase): Observable<void> {
+    protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -334,12 +330,33 @@ export class Client implements IClient {
         }
         return _observableOf(null as any);
     }
+}
+
+export interface IUsersClient {
+    /**
+     * @return Success
+     */
+    getProfile(): Observable<GetProfileResponse>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class UsersClient implements IUsersClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "";
+    }
 
     /**
      * @return Success
      */
-    users(): Observable<GetProfileResponse> {
-        let url_ = this.baseUrl + "/Users";
+    getProfile(): Observable<GetProfileResponse> {
+        let url_ = this.baseUrl + "/api/Users";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -351,11 +368,11 @@ export class Client implements IClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUsers(response_);
+            return this.processGetProfile(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processUsers(response_ as any);
+                    return this.processGetProfile(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<GetProfileResponse>;
                 }
@@ -364,7 +381,7 @@ export class Client implements IClient {
         }));
     }
 
-    protected processUsers(response: HttpResponseBase): Observable<GetProfileResponse> {
+    protected processGetProfile(response: HttpResponseBase): Observable<GetProfileResponse> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :

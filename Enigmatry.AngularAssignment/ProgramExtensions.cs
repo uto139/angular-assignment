@@ -8,7 +8,6 @@ public static class ProgramExtensions
     {
         services.AddSwaggerGen(options =>
         {
-            // Custom schema IDs for nested classes
             options.CustomSchemaIds(type =>
             {
                 if (type.IsNested)
@@ -24,6 +23,11 @@ public static class ProgramExtensions
             });
 
             options.SchemaFilter<EnumSchemaFilter>();
+
+            options.CustomOperationIds(apiDesc =>
+            {
+                return $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.ActionDescriptor.RouteValues["action"]}";
+            });
         });
     }
 }

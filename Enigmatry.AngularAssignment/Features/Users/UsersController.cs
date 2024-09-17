@@ -5,7 +5,7 @@ using System.Net.Mime;
 namespace Enigmatry.AngularAssignment.Api.Features.Users;
 
 [Produces(MediaTypeNames.Application.Json)]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly UserService _service;
