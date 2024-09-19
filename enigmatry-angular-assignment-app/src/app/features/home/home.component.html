@@ -1,6 +1,4 @@
 <section>
   <button mat-raised-button class="custom-black-button">Add post</button>
-  <section *ngFor="let item of posts">
-    <app-blog-post [post]="item"></app-blog-post>
-  </section>
+    <app-blog-post-list [posts]="posts"></app-blog-post-list>
 </section>

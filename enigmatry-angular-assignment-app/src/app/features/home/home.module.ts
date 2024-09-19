@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BlogPostComponent } from '@features/blog-post/blog-post.component';
+import { BlogPostModule } from '@features/blog-posts/blog-post.module';
 import { HomeComponent } from '@features/home/home.component';
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    BlogPostComponent
+    HomeComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    BlogPostModule
   ],
   exports: [
     HomeComponent
