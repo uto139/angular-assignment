@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GetBlogPostsResponse } from '@api';
+import { BlogPostsClient, GetBlogPostsResponse } from '@api';
 import { BlogPostEditDialogComponent } from '../blog-post-edit-dialog/blog-post-edit-dialog.component';
 
 @Component({
@@ -11,7 +11,9 @@ import { BlogPostEditDialogComponent } from '../blog-post-edit-dialog/blog-post-
 export class BlogPostItemComponent {
   @Input() post: GetBlogPostsResponse;
 
-  constructor(private readonly dialog: MatDialog) {}
+  constructor(
+    private readonly client: BlogPostsClient,
+    private readonly dialog: MatDialog) { }
 
   openEditDialog(): void {
     const dialogRef = this.dialog.open(BlogPostEditDialogComponent, {
@@ -24,5 +26,12 @@ export class BlogPostItemComponent {
         this.post.text = result.text;
       }
     });
+  }
+  onDelete(): void {
+    if (this.post.id !== null) {
+      this.client.delete(this.post.id ?? '').subscribe(() => {
+        window.location.reload();
+      });
+    }
   }
 }

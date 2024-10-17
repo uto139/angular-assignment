@@ -52,11 +52,6 @@ namespace Enigmatry.AngularAssignment.Api.Features.BlogPosts
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Update(Guid id, [FromBody] BlogPost blogPost)
         {
-            if (id != blogPost.Id)
-            {
-                return BadRequest("ID mismatch");
-            }
-
             await _blogService.Update(blogPost);
             return NoContent();
         }

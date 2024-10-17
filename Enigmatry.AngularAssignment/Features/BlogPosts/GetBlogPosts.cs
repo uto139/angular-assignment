@@ -32,4 +32,3 @@ public static class GetBlogPosts
         public MappingProfile() => CreateMap<BlogPost, Response>();
     }
 }
-
