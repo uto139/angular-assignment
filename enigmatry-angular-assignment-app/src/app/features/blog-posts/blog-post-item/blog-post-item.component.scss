@@ -3,7 +3,7 @@
 	margin: 20px auto;
 	padding: 20px;
 	border-radius: 8px;
-
+  
 	.header {
 		display: flex;
 		align-items: center;
@@ -26,16 +26,26 @@
 			font-size: 12px;
 		}
 	}
-
+  
 	.post-actions {
 		display: flex;
 		gap: 10px;
+		justify-content: flex-end; // align buttons to the right
 	}
-
+  
 	.text {
 		margin-bottom: 20px;
 		font-size: 14px;
 		line-height: 1.5;
+	}
+  
+	.custom-black-button {
+		background-color: #000;
+		color: #FFF;
+
+		&:hover {
+			background-color: #333;
+		}
 	}
   
 	.image-gallery {
@@ -43,7 +53,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: 10px;
-
+  
 		.gallery-item {
 			width: 100px;
 			height: 100px;

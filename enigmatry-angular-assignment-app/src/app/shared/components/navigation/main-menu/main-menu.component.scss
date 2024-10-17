@@ -2,7 +2,7 @@ $navbar-background-color: #000; // Pure black
 $navbar-text-color: #FFF;
 $navbar-hover-color: #CCC;
 $navbar-brand-size: 1.1rem; // Slightly smaller font size for thinner appearance
-$navbar-search-width: 250px; // Reduce search bar width to match thinner design
+$navbar-search-width: 200px; // Reduce search bar width
 $navbar-height: 50px; // Adjust the height for a thinner navbar
 
 .mat-toolbar {
@@ -23,17 +23,24 @@ $navbar-height: 50px; // Adjust the height for a thinner navbar
 
 	.navbar-search {
 		width: $navbar-search-width;
+		margin-top: 10px;
 		margin-left: auto;
-    
+
 		input {
-			padding: 3px 7px;
+			padding: 2px 5px; // Reduced padding for a smaller input
 			border: 1px solid $navbar-hover-color;
 			border-radius: 4px;
 			background-color: #FFF; // Set background to white
 			color: #000; // Set text color to black for contrast
-			font-size: .9rem;
+			font-size: .8rem; // Smaller font size
+
+			// Remove default focus outline
+			&:focus {
+				border-color: $navbar-hover-color; // Optional: Change border color on focus
+				outline: none; // Remove the blue outline
+			}
 		}
-    
+
 		button {
 			color: #000; // Ensure the search icon is visible
 		}
