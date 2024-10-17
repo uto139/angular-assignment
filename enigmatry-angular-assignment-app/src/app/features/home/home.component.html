@@ -1,4 +1,4 @@
 <section>
-  <button mat-raised-button class="custom-black-button">Add post</button>
-    <app-blog-post-list [posts]="posts"></app-blog-post-list>
+  <button mat-raised-button class="custom-black-button" (click)="openCreateDialog()">Add post</button>
+  <app-blog-post-list [posts]="posts"></app-blog-post-list>
 </section>

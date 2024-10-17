@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
 import { BlogPostsClient, GetBlogPostsResponse } from '@api';
+import { BlogPostEditDialogComponent } from '@features/blog-posts/blog-post-edit-dialog/blog-post-edit-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -8,21 +9,22 @@ import { BlogPostsClient, GetBlogPostsResponse } from '@api';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  posts: GetBlogPostsResponse[];
+  posts: GetBlogPostsResponse[] = [];
 
   constructor(
     private client: BlogPostsClient,
-    private sanitizer: DomSanitizer
-  ) { }
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    this.client.getAll().subscribe((data: any[]) => {
+    this.client.getAll().subscribe((data: GetBlogPostsResponse[]) => {
       this.posts = data;
     });
   }
 
-  //TODO
-  sanitizeImage(image: string): any {
-    return this.sanitizer.bypassSecurityTrustUrl(`data:image/jpeg;base64,${image}`);
+  openCreateDialog(): void {
+    this.dialog.open(BlogPostEditDialogComponent, {
+      data: { id: null, title: '', text: '' }
+    });
   }
 }

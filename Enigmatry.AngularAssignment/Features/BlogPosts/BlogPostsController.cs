@@ -33,27 +33,19 @@ namespace Enigmatry.AngularAssignment.Api.Features.BlogPosts
             var blogPosts = await _blogService.GetAll();
             return Ok(blogPosts.FirstOrDefault());
         }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Create([FromBody] BlogPost blogPost)
+        public async Task<ActionResult> CreateOrUpdate([FromBody] BlogPost blogPost)
         {
             if (blogPost == null)
             {
                 return BadRequest();
             }
 
-            await _blogService.Create(blogPost);
+            await _blogService.CreateOrUpdate(blogPost);
             return CreatedAtAction(nameof(Get), new { id = blogPost.Id }, blogPost);
-        }
-
-        [HttpPut("{id:guid}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Update(Guid id, [FromBody] BlogPost blogPost)
-        {
-            await _blogService.Update(blogPost);
-            return NoContent();
         }
 
         [HttpDelete("{id:guid}")]

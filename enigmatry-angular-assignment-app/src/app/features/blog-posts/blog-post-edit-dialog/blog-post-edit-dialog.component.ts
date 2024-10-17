@@ -25,15 +25,9 @@ export class BlogPostEditDialogComponent {
 
   onPost(): void {
     if (this.postForm.valid) {
-      if (this.data.id) {
-        this.client.update(this.data.id, this.postForm.value).subscribe(() => {
+        this.client.createOrUpdate(this.data).subscribe(() => {
           this.dialogRef.close(this.postForm.value);
         });
-      } else {
-        this.client.create(this.postForm.value).subscribe(newPost => {
-          this.dialogRef.close(newPost);
-        });
-      }
     }
   }
 

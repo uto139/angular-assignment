@@ -2,7 +2,7 @@
 
 public class BlogPost
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; }
     public string Title { get; set; } = String.Empty;
     public string Text { get; set; } = String.Empty;
 

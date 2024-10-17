@@ -24,16 +24,11 @@ export interface IBlogPostsClient {
      * @param body (optional) 
      * @return Created
      */
-    create(body: BlogPost | undefined): Observable<void>;
+    createOrUpdate(body: BlogPost | undefined): Observable<void>;
     /**
      * @return Success
      */
     get(): Observable<GetBlogPostsResponse>;
-    /**
-     * @param body (optional) 
-     * @return No Content
-     */
-    update(id: string, body: BlogPost | undefined): Observable<void>;
     /**
      * @return No Content
      */
@@ -115,7 +110,7 @@ export class BlogPostsClient implements IBlogPostsClient {
      * @param body (optional) 
      * @return Created
      */
-    create(body: BlogPost | undefined): Observable<void> {
+    createOrUpdate(body: BlogPost | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/BlogPosts";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -131,11 +126,11 @@ export class BlogPostsClient implements IBlogPostsClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreate(response_);
+            return this.processCreateOrUpdate(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processCreate(response_ as any);
+                    return this.processCreateOrUpdate(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -144,7 +139,7 @@ export class BlogPostsClient implements IBlogPostsClient {
         }));
     }
 
-    protected processCreate(response: HttpResponseBase): Observable<void> {
+    protected processCreateOrUpdate(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -209,65 +204,6 @@ export class BlogPostsClient implements IBlogPostsClient {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = GetBlogPostsResponse.fromJS(resultData200);
             return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return No Content
-     */
-    update(id: string, body: BlogPost | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/BlogPosts/{id}";
-        if (id === undefined || id === null)
-            throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json",
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdate(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdate(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processUpdate(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status === 400) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("Bad Request", status, _responseText, _headers);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -405,7 +341,7 @@ export class UsersClient implements IUsersClient {
 }
 
 export class BlogPost implements IBlogPost {
-    id?: string;
+    id?: string | undefined;
     title?: string | undefined;
     text?: string | undefined;
     readonly createdOn?: Date;
@@ -457,7 +393,7 @@ export class BlogPost implements IBlogPost {
 }
 
 export interface IBlogPost {
-    id?: string;
+    id?: string | undefined;
     title?: string | undefined;
     text?: string | undefined;
     createdOn?: Date;
