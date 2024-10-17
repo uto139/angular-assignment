@@ -10,7 +10,7 @@ export class BlogPostListComponent implements OnInit {
   @Input() posts: GetBlogPostsResponse[];
 
 
-  constructor(private readonly client: BlogPostsClient) {}
+  constructor(private readonly client: BlogPostsClient) { }
 
   ngOnInit(): void {
     this.loadPosts();

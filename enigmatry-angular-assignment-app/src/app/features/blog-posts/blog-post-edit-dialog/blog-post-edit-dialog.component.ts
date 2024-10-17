@@ -6,7 +6,7 @@ import { BlogPostsClient } from '@api';
 @Component({
   selector: 'app-blog-post-edit-dialog',
   templateUrl: './blog-post-edit-dialog.component.html',
-  styleUrls: ['./blog-post-edit-dialog.component.scss'] // corrected from styleUrl to styleUrls
+  styleUrls: ['./blog-post-edit-dialog.component.scss']
 })
 export class BlogPostEditDialogComponent {
   postForm: FormGroup;
@@ -18,16 +18,21 @@ export class BlogPostEditDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.postForm = this.fb.group({
-      title: [data.title || '', Validators.required],
-      text: [data.text || '', Validators.required]
+      title: [data?.title || '', Validators.required],
+      text: [data?.text || '', Validators.required]
     });
   }
 
   onPost(): void {
     if (this.postForm.valid) {
-        this.client.createOrUpdate(this.data).subscribe(() => {
-          this.dialogRef.close(this.postForm.value);
-        });
+      const updatedData = {
+        id: this.data.id,
+        ...this.postForm.value
+      };
+
+      this.client.createOrUpdate(updatedData).subscribe(() => {
+        this.dialogRef.close(updatedData);
+      });
     }
   }
 

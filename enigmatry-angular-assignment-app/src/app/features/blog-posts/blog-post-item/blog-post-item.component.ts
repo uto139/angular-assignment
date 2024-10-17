@@ -22,11 +22,11 @@ export class BlogPostItemComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.post.title = result.title;
-        this.post.text = result.text;
+        this.post = result;
       }
     });
   }
+
   onDelete(): void {
     if (this.post.id !== null) {
       this.client.delete(this.post.id ?? '').subscribe(() => {

@@ -1,3 +1,23 @@
 .full-width {
 	width: 100%;
 }
+
+.custom-black-button {
+	width: 100px;
+	background-color: #000;
+	color: #FFF;
+
+	&:hover {
+		background-color: #333;
+	}
+}
+
+.dialog-actions {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.blog-post-edit-dialog {
+	width: 600px;
+}

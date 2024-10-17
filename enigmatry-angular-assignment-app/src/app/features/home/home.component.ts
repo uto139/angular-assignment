@@ -12,19 +12,29 @@ export class HomeComponent implements OnInit {
   posts: GetBlogPostsResponse[] = [];
 
   constructor(
-    private client: BlogPostsClient,
-    private dialog: MatDialog
-  ) {}
+    private readonly client: BlogPostsClient,
+    private readonly dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
+    this.loadPosts();
+  }
+
+  loadPosts(): void {
     this.client.getAll().subscribe((data: GetBlogPostsResponse[]) => {
       this.posts = data;
     });
   }
 
   openCreateDialog(): void {
-    this.dialog.open(BlogPostEditDialogComponent, {
+    const dialogRef = this.dialog.open(BlogPostEditDialogComponent, {
       data: { id: null, title: '', text: '' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadPosts();
+      }
     });
   }
 }
