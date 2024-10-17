@@ -40,8 +40,10 @@
   
 	.image-gallery {
 		display: flex;
+		align-items: center;
+		justify-content: center;
 		gap: 10px;
-  
+
 		.gallery-item {
 			width: 100px;
 			height: 100px;

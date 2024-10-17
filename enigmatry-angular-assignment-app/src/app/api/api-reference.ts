@@ -408,8 +408,6 @@ export class BlogPost implements IBlogPost {
     id?: string;
     title?: string | undefined;
     text?: string | undefined;
-    mainImage?: string | undefined;
-    attachmentImages?: string[] | undefined;
     readonly createdOn?: Date;
     categories?: BlogPostCategory[] | undefined;
 
@@ -427,12 +425,6 @@ export class BlogPost implements IBlogPost {
             this.id = _data["id"];
             this.title = _data["title"];
             this.text = _data["text"];
-            this.mainImage = _data["mainImage"];
-            if (Array.isArray(_data["attachmentImages"])) {
-                this.attachmentImages = [] as any;
-                for (let item of _data["attachmentImages"])
-                    this.attachmentImages!.push(item);
-            }
             (<any>this).createdOn = _data["createdOn"] ? new Date(_data["createdOn"].toString()) : <any>undefined;
             if (Array.isArray(_data["categories"])) {
                 this.categories = [] as any;
@@ -454,12 +446,6 @@ export class BlogPost implements IBlogPost {
         data["id"] = this.id;
         data["title"] = this.title;
         data["text"] = this.text;
-        data["mainImage"] = this.mainImage;
-        if (Array.isArray(this.attachmentImages)) {
-            data["attachmentImages"] = [];
-            for (let item of this.attachmentImages)
-                data["attachmentImages"].push(item);
-        }
         data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
         if (Array.isArray(this.categories)) {
             data["categories"] = [];
@@ -474,8 +460,6 @@ export interface IBlogPost {
     id?: string;
     title?: string | undefined;
     text?: string | undefined;
-    mainImage?: string | undefined;
-    attachmentImages?: string[] | undefined;
     createdOn?: Date;
     categories?: BlogPostCategory[] | undefined;
 }
@@ -491,8 +475,6 @@ export class GetBlogPostsResponse implements IGetBlogPostsResponse {
     id?: string;
     title?: string | undefined;
     text?: string | undefined;
-    mainImage?: string | undefined;
-    attachmentImages?: string[] | undefined;
     readonly createdOn?: Date;
     categories?: BlogPostCategory[] | undefined;
 
@@ -510,12 +492,6 @@ export class GetBlogPostsResponse implements IGetBlogPostsResponse {
             this.id = _data["id"];
             this.title = _data["title"];
             this.text = _data["text"];
-            this.mainImage = _data["mainImage"];
-            if (Array.isArray(_data["attachmentImages"])) {
-                this.attachmentImages = [] as any;
-                for (let item of _data["attachmentImages"])
-                    this.attachmentImages!.push(item);
-            }
             (<any>this).createdOn = _data["createdOn"] ? new Date(_data["createdOn"].toString()) : <any>undefined;
             if (Array.isArray(_data["categories"])) {
                 this.categories = [] as any;
@@ -537,12 +513,6 @@ export class GetBlogPostsResponse implements IGetBlogPostsResponse {
         data["id"] = this.id;
         data["title"] = this.title;
         data["text"] = this.text;
-        data["mainImage"] = this.mainImage;
-        if (Array.isArray(this.attachmentImages)) {
-            data["attachmentImages"] = [];
-            for (let item of this.attachmentImages)
-                data["attachmentImages"].push(item);
-        }
         data["createdOn"] = this.createdOn ? this.createdOn.toISOString() : <any>undefined;
         if (Array.isArray(this.categories)) {
             data["categories"] = [];
@@ -557,8 +527,6 @@ export interface IGetBlogPostsResponse {
     id?: string;
     title?: string | undefined;
     text?: string | undefined;
-    mainImage?: string | undefined;
-    attachmentImages?: string[] | undefined;
     createdOn?: Date;
     categories?: BlogPostCategory[] | undefined;
 }

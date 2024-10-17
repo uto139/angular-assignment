@@ -1,6 +1,6 @@
 <div class="blog-post mat-elevation-z3" *ngIf="post">
   <div class="header">
-    <img class="thumbnail" [src]="post.mainImage" alt="Thumbnail" />
+    <img class="thumbnail" src="/assets/images/main_image.jpg" alt="Thumbnail" />
     <div class="post-details">
       <h2 mat-line>{{ post.title }}</h2>
       <p class="post-meta">
@@ -15,7 +15,9 @@
   <p class="text">
     {{post.text}}
   </p>
-  <div class="image-gallery" *ngIf="post.attachmentImages && post.attachmentImages.length > 0">
-    <img class="gallery-item" *ngFor="let image of post.attachmentImages" [src]="image" [alt]="image" />
+  <div class="image-gallery">
+    <img class="gallery-item" src="/assets/images/attachment_image1.jpg"/>
+    <img class="gallery-item" src="/assets/images/attachment_image2.jpg"/>
+    <img class="gallery-item" src="/assets/images/attachment_image3.jpg"/>
   </div>
 </div>
