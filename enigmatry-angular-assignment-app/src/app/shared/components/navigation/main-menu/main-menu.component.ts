@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { SizeService } from '@services/size.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -7,14 +6,6 @@ import { SizeService } from '@services/size.service';
   styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent {
-  @Input() menuItems: { description: string; icon: string; aria: string; url: string }[];
-  @Input() onHamburgerClick: () => void;
+  @Input() menuItems: { key: string; value: number }[] = [];
   @Input() onLogout: () => void;
-  @Input() show: () => void;
-
-  get showSideMenu(): boolean {
-    return this.sizeService.lastKnownSize.supportsSideMenu;
-  }
-
-  constructor(readonly sizeService: SizeService) { }
 }

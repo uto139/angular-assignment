@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class SideMenuComponent {
   showUserActions = false;
-  @Input() categories: { description: string; icon: string; aria: string; url: string }[];
+  @Input() categories: { key: string; value: number }[] = [];
 }

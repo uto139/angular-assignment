@@ -15,9 +15,12 @@ public class BlogPostService
         _mapper = mapper;
     }
 
-    public Task<List<GetBlogPosts.Response>> GetAll() =>
-        Task.FromResult(_mapper.Map<List<BlogPost>, List<GetBlogPosts.Response>>(_blogPosts));
-    
+    public Task<List<GetBlogPosts.Response>> GetAll()
+    {
+        var blogPosts = _mapper.Map<List<BlogPost>, List<GetBlogPosts.Response>>(_blogPosts).OrderByDescending(x => x.CreatedOn).ToList();
+        return Task.FromResult(blogPosts);
+    }
+
     public Task CreateOrUpdate(BlogPost blogPost)
     {
         var existingPost = _blogPosts.SingleOrDefault(x => x.Id == blogPost.Id);

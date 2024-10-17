@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BlogPostCategory } from '@api';
 
 @Component({
   selector: 'app-menu',
@@ -6,9 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
-  menuItems = [
-    { description: 'Category 1', icon: 'home', aria: 'Home icon', url: '/home' },
-    { description: 'Category 2', icon: 'home', aria: 'Home icon', url: '/home' },
-    { description: 'Category 3', icon: 'home', aria: 'Home icon', url: '/home' }
-  ];
+  menuItems: { key: string; value: number }[] = [];
+
+  constructor() {
+    this.menuItems = this.getEnumValues(BlogPostCategory);
+  }
+
+  getEnumValues(enumObj: any): { key: string; value: number }[] {
+    return Object.keys(enumObj)
+      .filter(key => isNaN(Number(key))) // Filter out numeric values (reverse mapping)
+      .map(key => ({ key, value: enumObj[key] }));
+  }
 }
