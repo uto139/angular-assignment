@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
   menuItems = [
-    { description: 'Home', icon: 'home', aria: 'Home icon', url: '/home' }
+    { description: 'Category 1', icon: 'home', aria: 'Home icon', url: '/home' },
+    { description: 'Category 2', icon: 'home', aria: 'Home icon', url: '/home' },
+    { description: 'Category 3', icon: 'home', aria: 'Home icon', url: '/home' }
   ];
 }
