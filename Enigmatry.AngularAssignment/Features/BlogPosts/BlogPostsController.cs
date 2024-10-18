@@ -53,7 +53,7 @@ namespace Enigmatry.AngularAssignment.Api.Features.BlogPosts
             }
 
             await _blogService.CreateOrUpdate(blogPost);
-            return CreatedAtAction(nameof(Get), new { id = blogPost.Id }, blogPost);
+            return Ok();
         }
 
         [HttpDelete("{id:guid}")]

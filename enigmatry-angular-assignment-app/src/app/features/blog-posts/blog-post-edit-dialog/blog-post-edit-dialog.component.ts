@@ -24,10 +24,11 @@ export class BlogPostEditDialogComponent {
         [
           Validators.required,
           Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TITLE_MAX_LENGTH),
-          Validators.pattern('^[a-zA-Z0-9 ]+$') // Alphanumeric pattern (letters, numbers, and spaces)
+          Validators.pattern('^[a-zA-Z0-9 ]+$')
         ]
       ],
-      text: [data?.text || '', [Validators.required, Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH)]]
+      text: [data?.text || '', [Validators.required, Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH)]],
+      createdOn: [this.data.date || new Date()]
     });
   }
 
