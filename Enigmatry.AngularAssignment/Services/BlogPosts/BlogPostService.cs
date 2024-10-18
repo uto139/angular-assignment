@@ -21,6 +21,18 @@ public class BlogPostService
         return Task.FromResult(blogPosts);
     }
 
+    public Task<List<GetBlogPosts.Response>> Search(string? keyword)
+    {
+        var blogPosts = _mapper.Map<List<BlogPost>, List<GetBlogPosts.Response>>(_blogPosts).OrderByDescending(x => x.CreatedOn).ToList();
+        if (keyword is null)
+        {
+            return Task.FromResult(blogPosts);
+        }
+
+        blogPosts = blogPosts.Where(x => x.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) || x.Text.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
+        return Task.FromResult(blogPosts);
+    }
+
     public Task CreateOrUpdate(BlogPost blogPost)
     {
         var existingPost = _blogPosts.SingleOrDefault(x => x.Id == blogPost.Id);

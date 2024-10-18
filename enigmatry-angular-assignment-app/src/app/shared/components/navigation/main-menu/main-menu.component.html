@@ -2,8 +2,8 @@
   <span>My Blog</span>
 
   <div class="navbar-search">
-    <input type="text" placeholder="Search..." />
-</div>
+    <input [formControl]="searchControl" type="text" placeholder="Search..." />
+  </div>
 
   <nav class="navbar-links">
     <a mat-button routerLink="#">Link 1</a>

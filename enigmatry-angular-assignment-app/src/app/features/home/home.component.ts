@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogPostsClient, GetBlogPostsResponse } from '@api';
+import { SearchService } from '@app/services/search.service';
 import { BlogPostEditDialogComponent } from '@features/blog-posts/blog-post-edit-dialog/blog-post-edit-dialog.component';
 
 @Component({
@@ -13,11 +14,16 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private readonly client: BlogPostsClient,
-    private readonly dialog: MatDialog
+    private readonly dialog: MatDialog,
+    private readonly searchService: SearchService
   ) { }
 
   ngOnInit(): void {
     this.loadPosts();
+
+    this.searchService.searchResults$.subscribe(results => {
+      this.posts = results;
+    });
   }
 
   loadPosts(): void {
