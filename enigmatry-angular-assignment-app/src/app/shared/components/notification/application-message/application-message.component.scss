@@ -1,0 +1,19 @@
+.app-message {
+	display: flex;
+	justify-content: space-between;
+	width: 1000px;
+	max-width: 1000px;
+	margin: 20px auto;
+	margin-top: 1px;
+	margin-bottom: 30px;
+	padding: 20px;
+	border: 1px solid #CCC;
+	background-color: #F0F0F0;
+}
+
+.close-icon {
+	padding-left: 16px; /* Add spacing between message and close icon */
+	color: #000; /* Change color as needed */
+	font-size: 20px; /* Adjust size as needed */
+	cursor: pointer; /* Change cursor to pointer on hover */
+}

@@ -11,6 +11,7 @@ import { BlogPostEditDialogComponent } from '@features/blog-posts/blog-post-edit
 })
 export class HomeComponent implements OnInit {
   posts: GetBlogPostsResponse[] = [];
+  appMessage: string = 'Hey blogger!';
 
   constructor(
     private readonly client: BlogPostsClient,

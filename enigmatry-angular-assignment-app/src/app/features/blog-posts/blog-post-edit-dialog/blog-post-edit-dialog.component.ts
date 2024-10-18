@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BlogPostsClient } from '@api';
+import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-constants.component';
 
 @Component({
   selector: 'app-blog-post-edit-dialog',
@@ -18,8 +19,15 @@ export class BlogPostEditDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.postForm = this.fb.group({
-      title: [data?.title || '', Validators.required],
-      text: [data?.text || '', Validators.required]
+      title: [
+        data?.title || '',
+        [
+          Validators.required,
+          Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TITLE_MAX_LENGTH),
+          Validators.pattern('^[a-zA-Z0-9 ]+$') // Alphanumeric pattern (letters, numbers, and spaces)
+        ]
+      ],
+      text: [data?.text || '', [Validators.required, Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH)]]
     });
   }
 

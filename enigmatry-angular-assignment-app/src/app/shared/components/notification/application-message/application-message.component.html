@@ -1,0 +1,4 @@
+<div *ngIf="!isClosed" class="app-message">
+    <span>{{message}}</span>
+    <span class="close-icon" (click)="dismissMessage()">&#10005;</span>
+</div>
