@@ -23,6 +23,6 @@ export class BlogPostListComponent implements OnInit {
   }
 
   onPostDeleted(): void {
-    this.loadPosts(); // Refresh the list when a post is deleted
+    this.loadPosts();
   }
 }

@@ -12,14 +12,12 @@ export class ApplicationMessageComponent implements OnInit {
   localStorageKey: string = 'appMessageDismissed';
 
   ngOnInit(): void {
-    // Check if the message has been dismissed from localStorage
     const storedValue = localStorage.getItem(this.localStorageKey);
-    this.isClosed = storedValue === 'true'; // Convert string to boolean
+    this.isClosed = storedValue === 'true';
   }
 
   dismissMessage(): void {
     this.isClosed = true;
-    // Save the dismissed state to localStorage
     localStorage.setItem(this.localStorageKey, 'true');
   }
 }

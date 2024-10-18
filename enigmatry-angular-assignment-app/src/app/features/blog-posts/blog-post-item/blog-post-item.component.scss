@@ -6,12 +6,12 @@
     
 	.header {
 		display: flex;
-		align-items: flex-start; // Changed to flex-start to prevent stretching
-		gap: 15px; // Using gap instead of margin
+		align-items: flex-start;
+		gap: 15px;
 		margin-bottom: 20px;
       
 		.thumbnail {
-			flex-shrink: 0; // Prevent thumbnail from shrinking
+			flex-shrink: 0;
 			width: 80px;
 			height: 80px;
 			border-radius: 5px;
@@ -21,8 +21,8 @@
     
 	.post-details {
 		flex: 1;
-		min-width: 0; // Enable text truncation
-		overflow: hidden; // Contain the content
+		min-width: 0;
+		overflow: hidden;
       
 		h2 {
 			margin: 0 0 8px;
@@ -38,9 +38,9 @@
     
 	.post-actions {
 		display: flex;
-		flex-shrink: 0; // Prevent buttons from shrinking
+		flex-shrink: 0;
 		justify-content: flex-end;
-		margin-left: auto; // Push to the right
+		margin-left: auto;
 		gap: 10px;
 	}
     
@@ -53,10 +53,12 @@
 	}
     
 	.custom-black-button {
+		height: 25px;
+		border-radius: 0;
 		background-color: #000;
 		color: #FFF;
-		white-space: nowrap; // Prevent button text from wrapping
-      
+		white-space: nowrap;
+
 		&:hover {
 			background-color: #333;
 		}
@@ -64,7 +66,7 @@
     
 	.image-gallery {
 		display: flex;
-		flex-wrap: wrap; // Allow images to wrap on smaller screens
+		flex-wrap: wrap;
 		align-items: center;
 		justify-content: center;
 		gap: 10px;
