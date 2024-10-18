@@ -10,10 +10,6 @@
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Text</mat-label>
           <textarea matInput formControlName="text" placeholder="Text of the post"></textarea>
-          <mat-error *ngIf="postForm.get('text')?.hasError('required')">Text is required</mat-error>
-          <mat-error *ngIf="postForm.get('text')?.hasError('minlength')">
-            Text must be at least 20 characters long
-          </mat-error>
         </mat-form-field>
       </form>
     </div>
