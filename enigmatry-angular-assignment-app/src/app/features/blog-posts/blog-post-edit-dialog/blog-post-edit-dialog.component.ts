@@ -36,7 +36,12 @@ export class BlogPostEditDialogComponent {
           Validators.pattern('^[a-zA-Z0-9 ]+$')
         ]
       ],
-      text: [data?.text || '', [Validators.required, Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH)]],
+        text: [data?.text || '',
+        [
+          Validators.required,
+          Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH)
+        ]
+      ],
       createdOn: [data.createdOn || new Date()],
       categories: [data?.categories || []]
     });
