@@ -28,9 +28,9 @@ namespace Enigmatry.AngularAssignment.Api.Features.BlogPosts
 
         [HttpGet("search")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<GetBlogPosts.Response>>> Search([FromQuery] string? keyword)
+        public async Task<ActionResult<List<GetBlogPosts.Response>>> Search([FromQuery] string? keyword, [FromQuery] BlogPostCategory? category)
         {
-            var blogPosts = await _blogService.Search(keyword);
+            var blogPosts = await _blogService.Search(keyword, category);
             return Ok(blogPosts);
         }
 

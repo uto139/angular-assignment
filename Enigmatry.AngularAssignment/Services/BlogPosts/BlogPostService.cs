@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Enigmatry.AngularAssignment.Api.Features.BlogPosts;
 using Enigmatry.AngularAssignment.Api.Models.BlogPosts;
-using System.Linq;
 
 namespace Enigmatry.AngularAssignment.Api.Services.BlogPosts;
 public class BlogPostService
@@ -21,16 +20,15 @@ public class BlogPostService
         return Task.FromResult(blogPosts);
     }
 
-    public Task<List<GetBlogPosts.Response>> Search(string? keyword)
+    public Task<List<GetBlogPosts.Response>> Search(string? keyword, BlogPostCategory? category)
     {
-        var blogPosts = _mapper.Map<List<BlogPost>, List<GetBlogPosts.Response>>(_blogPosts).OrderByDescending(x => x.CreatedOn).ToList();
-        if (keyword is null)
-        {
-            return Task.FromResult(blogPosts);
-        }
+        var blogPosts = _blogPosts
+            .QueryByKeyword(keyword)
+            .QueryByCategory(category)
+            .ToList();
 
-        blogPosts = blogPosts.Where(x => x.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) || x.Text.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
-        return Task.FromResult(blogPosts);
+        var result = _mapper.Map<List<BlogPost>, List<GetBlogPosts.Response>>(blogPosts).OrderByDescending(x => x.CreatedOn).ToList();
+        return Task.FromResult(result);
     }
 
     public Task CreateOrUpdate(BlogPost blogPost)

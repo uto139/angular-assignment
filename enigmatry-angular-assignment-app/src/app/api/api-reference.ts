@@ -24,12 +24,13 @@ export interface IBlogPostsClient {
      * @param body (optional) 
      * @return Created
      */
-    createOrUpdate(body: BlogPost | undefined): Observable<void>;
+    createOrUpdate(body?: BlogPost | undefined): Observable<void>;
     /**
      * @param keyword (optional) 
+     * @param category (optional) 
      * @return Success
      */
-    search(keyword: string | undefined): Observable<GetBlogPostsResponse[]>;
+    search(keyword?: string | undefined, category?: BlogPostCategory | undefined): Observable<GetBlogPostsResponse[]>;
     /**
      * @return Success
      */
@@ -115,7 +116,7 @@ export class BlogPostsClient implements IBlogPostsClient {
      * @param body (optional) 
      * @return Created
      */
-    createOrUpdate(body: BlogPost | undefined): Observable<void> {
+    createOrUpdate(body?: BlogPost | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/BlogPosts";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -169,14 +170,19 @@ export class BlogPostsClient implements IBlogPostsClient {
 
     /**
      * @param keyword (optional) 
+     * @param category (optional) 
      * @return Success
      */
-    search(keyword: string | undefined): Observable<GetBlogPostsResponse[]> {
+    search(keyword?: string | undefined, category?: BlogPostCategory | undefined): Observable<GetBlogPostsResponse[]> {
         let url_ = this.baseUrl + "/api/BlogPosts/search?";
         if (keyword === null)
             throw new Error("The parameter 'keyword' cannot be null.");
         else if (keyword !== undefined)
             url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (category === null)
+            throw new Error("The parameter 'category' cannot be null.");
+        else if (category !== undefined)
+            url_ += "category=" + encodeURIComponent("" + category) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -479,7 +485,7 @@ export class GetBlogPostsResponse implements IGetBlogPostsResponse {
     id?: string;
     title?: string | undefined;
     text?: string | undefined;
-    readonly createdOn?: Date;
+    createdOn?: Date;
     categories?: BlogPostCategory[] | undefined;
 
     constructor(data?: IGetBlogPostsResponse) {
@@ -496,7 +502,7 @@ export class GetBlogPostsResponse implements IGetBlogPostsResponse {
             this.id = _data["id"];
             this.title = _data["title"];
             this.text = _data["text"];
-            (<any>this).createdOn = _data["createdOn"] ? new Date(_data["createdOn"].toString()) : <any>undefined;
+            this.createdOn = _data["createdOn"] ? new Date(_data["createdOn"].toString()) : <any>undefined;
             if (Array.isArray(_data["categories"])) {
                 this.categories = [] as any;
                 for (let item of _data["categories"])
