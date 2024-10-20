@@ -19,7 +19,6 @@ export class BlogPostListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Apply query params to the filters when the component initializes
     this.route.queryParams.subscribe(params => {
       this.query.applyRouteChanges(params); // Apply changes based on the current route params
       this.loadPosts();
@@ -38,7 +37,6 @@ export class BlogPostListComponent implements OnInit {
     this.loadPosts();
   }
 
-  // Method to handle filter changes and update the URL query params
   onFilterChange(searchParams: any): void {
     this.query.searchFilterChange(searchParams); // Update the filters with the new search params
     const queryParams = this.query.getRouteQueryParams();

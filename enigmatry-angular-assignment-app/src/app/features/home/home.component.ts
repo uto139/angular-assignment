@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadPosts(): void {
-    this.client.getAll().subscribe((data: GetBlogPostsResponse[]) => {
+    this.client.search().subscribe((data: GetBlogPostsResponse[]) => {
       this.posts = data;
     });
   }
