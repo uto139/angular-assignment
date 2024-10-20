@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BlogPostsClient } from '@api';
+import { BlogPost, BlogPostCategory, BlogPostsClient } from '@api';
 import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-constants.component';
 
 @Component({
@@ -11,13 +11,22 @@ import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-constants.component';
 })
 export class BlogPostEditDialogComponent {
   postForm: FormGroup;
+  isEditMode: boolean;
+  categories: any[] = [
+    { value: BlogPostCategory.Marketing, displayName: $localize`:@@enum.product-type.marketing:Marketing` },
+    { value: BlogPostCategory.Sales, displayName: $localize`:@@enum.product-type.sales:Sales` },
+    { value: BlogPostCategory.Service, displayName: $localize`:@@enum.product-type.service:Service` },
+    { value: BlogPostCategory.Website, displayName: $localize`:@@enum.product-type.website:Website` }
+  ];
 
   constructor(
     private readonly client: BlogPostsClient,
     private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<BlogPostEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: BlogPost
   ) {
+    this.isEditMode = !!data?.id;
+
     this.postForm = this.fb.group({
       title: [
         data?.title || '',
@@ -28,7 +37,8 @@ export class BlogPostEditDialogComponent {
         ]
       ],
       text: [data?.text || '', [Validators.required, Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH)]],
-      createdOn: [this.data.date || new Date()]
+      createdOn: [data.createdOn || new Date()],
+      categories: [data?.categories || []]
     });
   }
 

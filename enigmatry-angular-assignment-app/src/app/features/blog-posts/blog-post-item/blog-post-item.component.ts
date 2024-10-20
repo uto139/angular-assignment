@@ -17,7 +17,13 @@ export class BlogPostItemComponent {
 
   openEditDialog(): void {
     const dialogRef = this.dialog.open(BlogPostEditDialogComponent, {
-      data: { id: this.post.id, title: this.post.title, text: this.post.text }
+      data: {
+        id: this.post.id,
+        title: this.post.title,
+        text: this.post.text,
+        categories: this.post.categories,
+        createdOn: this.post.createdOn
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

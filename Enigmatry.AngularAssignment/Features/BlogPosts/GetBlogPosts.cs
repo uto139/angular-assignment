@@ -21,7 +21,7 @@ public static class GetBlogPosts
         public string Title { get; set; } = String.Empty;
         public string Text { get; set; } = String.Empty;
 
-        public DateTimeOffset CreatedOn { get; } = DateTimeOffset.Now;
+        public DateTimeOffset CreatedOn { get; set; } = DateTimeOffset.Now;
 
         public IEnumerable<BlogPostCategory> Categories { get; set; } = Enumerable.Empty<BlogPostCategory>();
     }
