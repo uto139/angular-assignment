@@ -1,6 +1,9 @@
-<mat-nav-list class="indented-list">
-  <h2>Blog categories</h2>
-  <mat-list-item *ngFor="let category of categories">
-    <a>{{ category.key }}</a>
+<mat-nav-list>
+  <h2>Blog Categories</h2>
+  <mat-list-item 
+    *ngFor="let category of categories" 
+    (click)="selectCategory(category.key)"
+    [class.selected]="isSelected(category.key)">
+    {{ category.key }}
   </mat-list-item>
 </mat-nav-list>

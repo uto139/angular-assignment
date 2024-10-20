@@ -6,6 +6,15 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent {
-  showUserActions = false;
   @Input() categories: { key: string; value: number }[] = [];
+
+  selectedCategoryKey: string | null = null;
+
+  selectCategory(key: string): void {
+    this.selectedCategoryKey = this.selectedCategoryKey === key ? null : key;
+  }
+
+  isSelected(key: string): boolean {
+    return this.selectedCategoryKey === key;
+  }
 }

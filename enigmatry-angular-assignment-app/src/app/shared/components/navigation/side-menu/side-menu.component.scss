@@ -5,3 +5,8 @@
 .indented-list .mat-list-item {
 	padding-left: 10px; /* Optional: Add extra space for each list item */
 }
+
+.selected {
+	background-color: #D3D3D3; // Highlight color for selected item
+	font-weight: 700;
+}

@@ -15,7 +15,7 @@ export class MenuComponent {
 
   getEnumValues(enumObj: any): { key: string; value: number }[] {
     return Object.keys(enumObj)
-      .filter(key => isNaN(Number(key))) // Filter out numeric values (reverse mapping)
+      .filter(key => isNaN(Number(key)))
       .map(key => ({ key, value: enumObj[key] }));
   }
 }
