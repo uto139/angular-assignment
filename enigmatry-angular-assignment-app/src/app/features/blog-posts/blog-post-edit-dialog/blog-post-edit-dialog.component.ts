@@ -13,10 +13,10 @@ export class BlogPostEditDialogComponent {
   postForm: FormGroup;
   isEditMode: boolean;
   categories: any[] = [
-    { value: BlogPostCategory.Marketing, displayName: $localize`:@@enum.product-type.marketing:Marketing` },
-    { value: BlogPostCategory.Sales, displayName: $localize`:@@enum.product-type.sales:Sales` },
-    { value: BlogPostCategory.Service, displayName: $localize`:@@enum.product-type.service:Service` },
-    { value: BlogPostCategory.Website, displayName: $localize`:@@enum.product-type.website:Website` }
+    { value: BlogPostCategory.Marketing, displayName: $localize`:@@enum.blog-post-category.marketing:Marketing` },
+    { value: BlogPostCategory.Sales, displayName: $localize`:@@enum.blog-post-category.sales:Sales` },
+    { value: BlogPostCategory.Service, displayName: $localize`:@@enum.blog-post-category.service:Service` },
+    { value: BlogPostCategory.Website, displayName: $localize`:@@enum.blog-post-category.website:Website` }
   ];
 
   constructor(
