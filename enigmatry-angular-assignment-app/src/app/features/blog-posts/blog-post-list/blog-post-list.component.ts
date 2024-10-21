@@ -10,8 +10,7 @@ import { GetBlogPostsQuery } from '@features/home/models/search-query';
 })
 export class BlogPostListComponent implements OnInit {
   @Input() posts: GetBlogPostsResponse[];
-  query: GetBlogPostsQuery = new GetBlogPostsQuery(); // Initialize the query object
-
+  query: GetBlogPostsQuery = new GetBlogPostsQuery();
   constructor(
     private readonly client: BlogPostsClient,
     private readonly route: ActivatedRoute,
@@ -20,7 +19,7 @@ export class BlogPostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.query.applyRouteChanges(params); // Apply changes based on the current route params
+      this.query.applyRouteChanges(params);
       this.loadPosts();
     });
   }
@@ -38,7 +37,7 @@ export class BlogPostListComponent implements OnInit {
   }
 
   onFilterChange(searchParams: any): void {
-    this.query.searchFilterChange(searchParams); // Update the filters with the new search params
+    this.query.searchFilterChange(searchParams);
     const queryParams = this.query.getRouteQueryParams();
     this.router.navigate([], { queryParams });
   }

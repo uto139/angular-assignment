@@ -25,35 +25,38 @@ export class BlogPostEditDialogComponent {
     public dialogRef: MatDialogRef<BlogPostEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BlogPost
   ) {
-    this.isEditMode = !!data?.id;
+    this.initializeForm();
+  }
 
+  private initializeForm(): void {
+    this.isEditMode = !!this.data?.id;
     this.postForm = this.fb.group({
       title: [
-        data?.title || '',
+        this.data?.title || '',
         [
           Validators.required,
           Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TITLE_MAX_LENGTH),
           Validators.pattern('^[a-zA-Z0-9 ]+$')
         ]
       ],
-        text: [data?.text || '',
+      text: [
+        this.data?.text || '',
         [
           Validators.required,
           Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH)
         ]
       ],
-      createdOn: [data.createdOn || new Date()],
-      categories: [data?.categories || []]
+      createdOn: [this.data?.createdOn || new Date()],
+      categories: [this.data?.categories || []]
     });
   }
 
   onPost(): void {
     if (this.postForm.valid) {
       const updatedData = {
-        id: this.data.id,
+        id: this.data?.id,
         ...this.postForm.value
       };
-
       this.client.createOrUpdate(updatedData).subscribe(() => {
         this.dialogRef.close(updatedData);
       });

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { BlogPostsClient, GetBlogPostsResponse } from '@api';
-import { BlogPostEditDialogComponent } from '@features/blog-posts/blog-post-edit-dialog/blog-post-edit-dialog.component';
+import { BlogPostDialogService } from '@app/services/blog-post-dialog.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private readonly client: BlogPostsClient,
-    private readonly dialog: MatDialog
+    private readonly blogPostDialogService: BlogPostDialogService
   ) { }
 
   ngOnInit(): void {
@@ -28,11 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(BlogPostEditDialogComponent, {
-      data: { id: null, title: '', text: '' }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+    this.blogPostDialogService.openCreateDialog().subscribe(result => {
       if (result) {
         this.loadPosts();
       }
