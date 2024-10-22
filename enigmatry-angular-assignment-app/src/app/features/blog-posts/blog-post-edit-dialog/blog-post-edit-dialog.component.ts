@@ -32,7 +32,7 @@ export class BlogPostEditDialogComponent {
     this.isEditMode = !!this.data?.id;
     this.postForm = this.fb.group({
       title: [
-        this.data?.title || '',
+        this.data?.title ?? '',
         [
           Validators.required,
           Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TITLE_MAX_LENGTH),
