@@ -40,7 +40,7 @@ export class BlogPostEditDialogComponent {
         ]
       ],
       text: [
-        this.data?.text || '',
+        this.data?.text ?? '',
         [
           Validators.required,
           Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH)

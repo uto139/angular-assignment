@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BlogPost, BlogPostsClient } from '@api';
+import { BlogPost } from '@api';
 import { BlogPostEditDialogComponent } from '@features/blog-posts/blog-post-edit-dialog/blog-post-edit-dialog.component';
 import { Observable } from 'rxjs';
 
@@ -9,8 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class BlogPostDialogService {
   constructor(
-    private readonly dialog: MatDialog,
-    private readonly client: BlogPostsClient
+    private readonly dialog: MatDialog
   ) {}
 
   openCreateDialog(): Observable<any> {
