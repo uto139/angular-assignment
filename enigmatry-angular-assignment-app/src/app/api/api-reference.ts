@@ -17,24 +17,16 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 export interface IBlogPostsClient {
     /**
-     * @return Success
-     */
-    getAll(): Observable<GetBlogPostsResponse[]>;
-    /**
-     * @param body (optional) 
-     * @return Created
-     */
-    createOrUpdate(body?: BlogPost | undefined): Observable<void>;
-    /**
      * @param keyword (optional) 
      * @param category (optional) 
      * @return Success
      */
     search(keyword?: string | undefined, category?: BlogPostCategory | undefined): Observable<GetBlogPostsResponse[]>;
     /**
-     * @return Success
+     * @param body (optional) 
+     * @return Created
      */
-    get(): Observable<GetBlogPostsResponse>;
+    createOrUpdate(body?: BlogPost | undefined): Observable<void>;
     /**
      * @return No Content
      */
@@ -55,10 +47,20 @@ export class BlogPostsClient implements IBlogPostsClient {
     }
 
     /**
+     * @param keyword (optional) 
+     * @param category (optional) 
      * @return Success
      */
-    getAll(): Observable<GetBlogPostsResponse[]> {
-        let url_ = this.baseUrl + "/api/BlogPosts";
+    search(keyword?: string | undefined, category?: BlogPostCategory | undefined): Observable<GetBlogPostsResponse[]> {
+        let url_ = this.baseUrl + "/api/BlogPosts?";
+        if (keyword === null)
+            throw new Error("The parameter 'keyword' cannot be null.");
+        else if (keyword !== undefined)
+            url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (category === null)
+            throw new Error("The parameter 'category' cannot be null.");
+        else if (category !== undefined)
+            url_ += "category=" + encodeURIComponent("" + category) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -70,11 +72,11 @@ export class BlogPostsClient implements IBlogPostsClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
+            return this.processSearch(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAll(response_ as any);
+                    return this.processSearch(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<GetBlogPostsResponse[]>;
                 }
@@ -83,7 +85,7 @@ export class BlogPostsClient implements IBlogPostsClient {
         }));
     }
 
-    protected processGetAll(response: HttpResponseBase): Observable<GetBlogPostsResponse[]> {
+    protected processSearch(response: HttpResponseBase): Observable<GetBlogPostsResponse[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -159,125 +161,6 @@ export class BlogPostsClient implements IBlogPostsClient {
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("Bad Request", status, _responseText, _headers);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param keyword (optional) 
-     * @param category (optional) 
-     * @return Success
-     */
-    search(keyword?: string | undefined, category?: BlogPostCategory | undefined): Observable<GetBlogPostsResponse[]> {
-        let url_ = this.baseUrl + "/api/BlogPosts/search?";
-        if (keyword === null)
-            throw new Error("The parameter 'keyword' cannot be null.");
-        else if (keyword !== undefined)
-            url_ += "keyword=" + encodeURIComponent("" + keyword) + "&";
-        if (category === null)
-            throw new Error("The parameter 'category' cannot be null.");
-        else if (category !== undefined)
-            url_ += "category=" + encodeURIComponent("" + category) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSearch(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSearch(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetBlogPostsResponse[]>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetBlogPostsResponse[]>;
-        }));
-    }
-
-    protected processSearch(response: HttpResponseBase): Observable<GetBlogPostsResponse[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(GetBlogPostsResponse.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @return Success
-     */
-    get(): Observable<GetBlogPostsResponse> {
-        let url_ = this.baseUrl + "/api/BlogPosts/get-by-id";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGet(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGet(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetBlogPostsResponse>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetBlogPostsResponse>;
-        }));
-    }
-
-    protected processGet(response: HttpResponseBase): Observable<GetBlogPostsResponse> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetBlogPostsResponse.fromJS(resultData200);
-            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {

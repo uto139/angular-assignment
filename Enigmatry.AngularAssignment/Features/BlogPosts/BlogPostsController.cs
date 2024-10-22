@@ -20,26 +20,10 @@ namespace Enigmatry.AngularAssignment.Api.Features.BlogPosts
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<GetBlogPosts.Response>>> GetAll()
-        {
-            var blogPosts = await _blogService.GetAll();
-            return Ok(blogPosts);
-        }
-
-        [HttpGet("search")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<List<GetBlogPosts.Response>>> Search([FromQuery] string? keyword, [FromQuery] BlogPostCategory? category)
         {
             var blogPosts = await _blogService.Search(keyword, category);
             return Ok(blogPosts);
-        }
-
-        [HttpGet("get-by-id")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<GetBlogPosts.Response>> Get()
-        {
-            var blogPosts = await _blogService.GetAll();
-            return Ok(blogPosts.FirstOrDefault());
         }
 
         [HttpPost]
