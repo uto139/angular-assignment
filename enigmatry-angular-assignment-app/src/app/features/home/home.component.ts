@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogPostsClient, GetBlogPostsResponse } from '@api';
-import { BlogPostDialogService } from '@features/blog-posts/services/blog-post-dialog.service';
+import { BlogPostDialogService } from '@features/blog-posts/blog-post-edit-dialog/services/blog-post-dialog.service';
 
 @Component({
   selector: 'app-home',
