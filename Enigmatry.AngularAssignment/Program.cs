@@ -17,7 +17,8 @@ builder.Services.AddSwagger();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddSingleton<List<BlogPost>>();
+builder.Services.AddBlogPosts();
+
 builder.Services.AddSingleton<BlogPostService>();
 builder.Services.AddSingleton<UserService>();
 var app = builder.Build();
