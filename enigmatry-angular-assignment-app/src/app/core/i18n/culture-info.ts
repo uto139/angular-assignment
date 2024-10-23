@@ -9,12 +9,12 @@ export interface CultureInfo {
 
 export const cultures: Record<Language, CultureInfo> = {
   en: {
-    datePipeFormat: 'MM/dd/yyyy',
+    datePipeFormat: 'EEEE, MMMM d, yyyy',
     matDateFormat: 'MM/dd/yyyy',
     matDateLocale: enUS
   },
   nl: {
-    datePipeFormat: 'dd-MM-yyyy',
+    datePipeFormat: 'EEEE, d MMMM yyyy',
     matDateFormat: 'dd-MM-yyyy',
     matDateLocale: nl
   }

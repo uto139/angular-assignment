@@ -27,7 +27,7 @@ public class BlogPostService
             .QueryByCategory(category)
             .ToList();
 
-        var result = _mapper.Map<List<BlogPost>, List<GetBlogPosts.Response>>(blogPosts).OrderByDescending(x => x.CreatedOn).ToList();
+        var result = _mapper.Map<List<BlogPost>, List<GetBlogPosts.Response>>(blogPosts);
         return Task.FromResult(result);
     }
 

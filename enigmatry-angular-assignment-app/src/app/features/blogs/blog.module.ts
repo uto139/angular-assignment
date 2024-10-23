@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NotificationModule } from '@shared/components/notification/notification.module';
+import { OrderByDatePipe } from '@shared/pipes/order-by-date.pipe';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { BlogPostEditDialogComponent } from './blog-post-edit-dialog/blog-post-edit-dialog.component';
 import { BlogPostListComponent } from './blog-post-list/blog-post-list.component';
@@ -18,7 +19,8 @@ import { BlogComponent } from './blog.component';
     BlogPostComponent,
     BlogPostListComponent,
     BlogPostEditDialogComponent,
-    BlogComponent
+    BlogComponent,
+    OrderByDatePipe
   ],
   imports: [
     CommonModule,
