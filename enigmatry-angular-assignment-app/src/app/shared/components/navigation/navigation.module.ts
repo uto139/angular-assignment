@@ -15,7 +15,6 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { MenuComponent } from './menu.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 
-
 @NgModule({
   imports: [
     CommonModule,

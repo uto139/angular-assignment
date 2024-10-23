@@ -12,6 +12,10 @@ import { BLOG_POST_DIALOG_CONSTANTS } from './models/blog-post-constants';
 export class BlogPostEditDialogComponent {
   postForm: FormGroup;
   isEditMode: boolean;
+
+  titleMaxLength = BLOG_POST_DIALOG_CONSTANTS.TITLE_MAX_LENGTH;
+  textMaxLength = BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH;
+
   categories: any[] = [
     { value: BlogPostCategory.Marketing, displayName: $localize`:@@enum.blog-post-category.marketing:Marketing` },
     { value: BlogPostCategory.Sales, displayName: $localize`:@@enum.blog-post-category.sales:Sales` },
