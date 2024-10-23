@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
+import { RouteSegments } from '@shared/model/route-segments';
+import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
 import { MAIN_MENU_CONSTANTS } from './main-menu-constants';
 
 @Component({
@@ -10,16 +11,20 @@ import { MAIN_MENU_CONSTANTS } from './main-menu-constants';
   styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent implements OnInit {
-  @Input() menuItems: { key: string; value: number }[] = [];
   @Input() onLogout: () => void;
 
   searchControl = new FormControl('');
+  searchVisible: boolean = false;
 
-  constructor(
-    private readonly router: Router
-  ) { }
+  constructor(private readonly router: Router) { }
 
   ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.searchVisible = this.router.url.includes(RouteSegments.blogs);
+    });
+
     this.searchControl.valueChanges
       .pipe(
         debounceTime(MAIN_MENU_CONSTANTS.DEBOUNCE_TIME),
@@ -32,8 +37,8 @@ export class MainMenuComponent implements OnInit {
 
   updateQueryParams(query: string): void {
     this.router.navigate([], {
-      queryParams: { keyword: query || null }, // Update 'keyword' in query params, remove if empty
-      queryParamsHandling: 'merge'// keep other filters
+      queryParams: { keyword: query || null },
+      queryParamsHandling: 'merge'
     });
   }
 }

@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
-  <span>My Blog</span>
+  <a mat-button class="navbar-blog" [routerLink]="['/blogs']">My Blog</a>
 
-  <div class="navbar-search">
+  <div class="navbar-search" *ngIf="searchVisible">
     <input [formControl]="searchControl" type="text" placeholder="Search..." />
   </div>
 
@@ -12,7 +12,7 @@
   </nav>
 
   <div class="navbar-profile">
-    <a mat-button routerLink="#">My Profile</a>
+    <a mat-button [routerLink]="['/profile']">My Profile</a>
     <a mat-button routerLink="#">Logout</a>
   </div>
 </mat-toolbar>

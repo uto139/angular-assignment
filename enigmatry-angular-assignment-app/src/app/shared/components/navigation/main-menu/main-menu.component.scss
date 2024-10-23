@@ -8,37 +8,45 @@ $navbar-height: 50px; // Adjust the height for a thinner navbar
 .mat-toolbar {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-between; // Maintain spacing between items
 	height: $navbar-height;
 	padding: 0 15px;
 	background-color: $navbar-background-color;
 	color: $navbar-text-color;
 
 	.navbar-search {
-		margin-left: auto;
+		margin-right: 20px; // Space between search and links
 
 		input {
+			width: $navbar-search-width; // Set the width for the search input
 			background-color: #FFF; // Set background to white
 		}
 	}
 
 	.navbar-links {
-		margin-left: 20px; // Adjust margin to space out links from the search bar
+		margin-right: 20px; // Space between links and profile
 	}
 
 	.navbar-profile {
-		margin-left: 20px; // Adjust margin to space out profile links from the navbar links
+		margin-right: 0; // No margin needed if it's the last item
 	}
 
 	a {
 		margin-right: 15px;
 		color: $navbar-text-color;
-		font-size: .9rem;
+		font-size: .9rem; // Default font size
 		font-weight: 500;
 		text-decoration: none;
 
 		&:hover {
 			color: $navbar-hover-color;
 		}
+	}
+
+	// Specific styling for the "My Blog" link
+	.navbar-blog {
+		margin-right: auto; // Push it to the right
+		font-size: 1.2rem; // Increase font size for the blog link
+		font-weight: 600; // Make it slightly bolder
 	}
 }
