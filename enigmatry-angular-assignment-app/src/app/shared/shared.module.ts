@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormlyExtensionsModule } from '../formly/formly-extensions.module';
 import { NavigationComponentsModule } from './components/navigation/navigation.module';
 import { EntryComponentsModule } from './entry-components.module';
-import { FormWrapperComponent } from './form-wrapper/form-wrapper.component';
-import { GridCellsModule } from './grid-cells/grid-cells.module';
+
 import { MaterialModule } from './material.module';
 import { PipesModule } from './pipes/pipes.module';
 
@@ -19,15 +17,11 @@ import { PipesModule } from './pipes/pipes.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    GridCellsModule,
-    FormlyExtensionsModule,
     EntryComponentsModule,
-    FormWrapperComponent,
     NavigationComponentsModule,
     PipesModule
   ],
   declarations: [
-    FormWrapperComponent
   ]
 })
 export class SharedModule { }
