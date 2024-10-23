@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlogPostsClient, GetBlogPostsResponse } from '@api';
-import { GetBlogPostsQuery } from '@features/home/models/search-query';
+import { GetBlogPostsQuery } from '@features/blogs/models/get-blog-posts-query';
 
 @Component({
   selector: 'app-blog-post-list',

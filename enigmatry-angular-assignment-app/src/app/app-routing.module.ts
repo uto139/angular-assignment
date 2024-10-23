@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '@features/home/home.component';
+import { BlogComponent } from '@features/blogs/blog.component';
+import { RouteSegments } from '@shared/model/route-segments';
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: RouteSegments.blogs, pathMatch: 'full' },
     {
-        path: 'home',
-        component: HomeComponent,
-        title: $localize`:@@route.home:Home`
+        path: RouteSegments.blogs,
+        component: BlogComponent,
+        title: $localize`:@@route.blogs:Blogs`
     }
 ];
 

@@ -1,4 +1,4 @@
 export class RouteSegments {
-  static readonly create = 'create';
+  static readonly blogs = 'blogs';
   static readonly edit = 'edit';
 }

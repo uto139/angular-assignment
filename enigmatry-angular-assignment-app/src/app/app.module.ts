@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '@app/core.module';
 import { EntryCommonModule } from '@enigmatry/entry-components/common';
-import { HomeModule } from '@features/home/home.module';
+import { BlogModule } from '@features/blogs/blog.module';
 import { EntryComponentsModule } from '@shared/entry-components.module';
 import { SharedModule } from '@shared/shared.module';
 import { ApiModule } from './api/api.module';
@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
     CoreModule,
     ApiModule,
     SharedModule,
-    HomeModule,
+    BlogModule,
     EntryCommonModule.forRoot(),
     EntryComponentsModule.forRoot(),
     AppRoutingModule

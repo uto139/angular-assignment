@@ -4,11 +4,11 @@ import { BlogPostsClient, GetBlogPostsResponse } from '@api';
 import { BlogPostEditDialogComponent } from '../blog-post-edit-dialog/blog-post-edit-dialog.component';
 
 @Component({
-  selector: 'app-blog-post-item',
-  templateUrl: './blog-post-item.component.html',
-  styleUrls: ['./blog-post-item.component.scss']
+  selector: 'app-blog-post',
+  templateUrl: './blog-post.component.html',
+  styleUrls: ['./blog-post.component.scss']
 })
-export class BlogPostItemComponent {
+export class BlogPostComponent {
   @Input() post: GetBlogPostsResponse;
 
   constructor(

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogPost } from '@api';
-import { BlogPostEditDialogComponent } from '@features/blog-posts/blog-post-edit-dialog/blog-post-edit-dialog.component';
 import { Observable } from 'rxjs';
+import { BlogPostEditDialogComponent } from '../blog-post-edit-dialog.component';
 
 @Injectable({
   providedIn: 'root'

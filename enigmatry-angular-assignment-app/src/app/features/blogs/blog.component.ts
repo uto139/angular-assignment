@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogPostsClient, GetBlogPostsResponse } from '@api';
-import { BlogPostDialogService } from '@features/blog-posts/blog-post-edit-dialog/services/blog-post-dialog.service';
+import { BlogPostDialogService } from '@features/blogs/blog-post-edit-dialog/services/blog-post-dialog.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-blog',
+  templateUrl: './blog.component.html',
+  styleUrls: ['./blog.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class BlogComponent implements OnInit {
   posts: GetBlogPostsResponse[] = [];
   appMessage: string = 'Hey blogger!';
 
