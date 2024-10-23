@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrl: './application-message.component.scss'
 })
 export class ApplicationMessageComponent implements OnInit {
-  @Input() message: string = '';
+  @Input() message: string = 'Hello Blogger!';
 
   isClosed: boolean = false;
   localStorageKey: string = 'appMessageDismissed';

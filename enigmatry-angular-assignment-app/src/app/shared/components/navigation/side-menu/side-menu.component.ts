@@ -11,7 +11,7 @@ export class SideMenuComponent {
 
   selectedCategoryKey: string | null = null;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private readonly router: Router, private readonly route: ActivatedRoute) {}
 
   selectCategory(key: string): void {
     this.selectedCategoryKey = this.selectedCategoryKey === key ? null : key;

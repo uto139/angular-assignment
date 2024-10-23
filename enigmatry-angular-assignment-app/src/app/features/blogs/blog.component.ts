@@ -9,7 +9,6 @@ import { BlogPostDialogService } from '@features/blogs/blog-post-edit-dialog/ser
 })
 export class BlogComponent implements OnInit {
   posts: GetBlogPostsResponse[] = [];
-  appMessage: string = 'Hey blogger!';
 
   constructor(
     private readonly client: BlogPostsClient,
