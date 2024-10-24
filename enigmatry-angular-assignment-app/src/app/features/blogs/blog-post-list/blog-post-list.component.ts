@@ -11,6 +11,7 @@ import { GetBlogPostsQuery } from '@features/blogs/models/get-blog-posts-query';
 export class BlogPostListComponent implements OnInit {
   @Input() posts: GetBlogPostsResponse[];
   query: GetBlogPostsQuery = new GetBlogPostsQuery();
+
   constructor(
     private readonly client: BlogPostsClient,
     private readonly route: ActivatedRoute,
@@ -32,8 +33,8 @@ export class BlogPostListComponent implements OnInit {
     });
   }
 
-  onPostDeleted(): void {
-    this.loadPosts();
+  onPostDeleted(deletedPost: GetBlogPostsResponse): void {
+    this.posts = this.posts.filter(post => post.id !== deletedPost.id);
   }
 
   onFilterChange(searchParams: any): void {

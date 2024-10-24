@@ -20,7 +20,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddBlogPosts();
 
 builder.Services.AddSingleton<BlogPostService>();
-builder.Services.AddSingleton<UserService>();
+builder.Services.AddSingleton<ProfileService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

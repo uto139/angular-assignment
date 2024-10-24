@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogPostsClient, GetBlogPostsResponse } from '@api';
 import { BlogPostEditDialogComponent } from '../blog-post-edit-dialog/blog-post-edit-dialog.component';
@@ -10,6 +10,7 @@ import { BlogPostEditDialogComponent } from '../blog-post-edit-dialog/blog-post-
 })
 export class BlogPostComponent {
   @Input() post: GetBlogPostsResponse;
+  @Output() postDeleted = new EventEmitter<GetBlogPostsResponse>();
 
   constructor(
     private readonly client: BlogPostsClient,
@@ -36,7 +37,7 @@ export class BlogPostComponent {
   onDelete(): void {
     if (this.post.id !== null) {
       this.client.delete(this.post.id ?? '').subscribe(() => {
-        window.location.reload();
+        this.postDeleted.emit(this.post);
       });
     }
   }

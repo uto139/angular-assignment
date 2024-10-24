@@ -225,7 +225,7 @@ export class BlogPostsClient implements IBlogPostsClient {
     }
 }
 
-export interface IUsersClient {
+export interface IProfileClient {
     /**
      * @return Success
      */
@@ -235,7 +235,7 @@ export interface IUsersClient {
 @Injectable({
     providedIn: 'root'
 })
-export class UsersClient implements IUsersClient {
+export class ProfileClient implements IProfileClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -249,7 +249,7 @@ export class UsersClient implements IUsersClient {
      * @return Success
      */
     getProfile(): Observable<GetProfileResponse> {
-        let url_ = this.baseUrl + "/api/Users";
+        let url_ = this.baseUrl + "/api/Profile";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {

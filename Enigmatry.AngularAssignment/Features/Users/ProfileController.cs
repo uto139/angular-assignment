@@ -6,9 +6,9 @@ namespace Enigmatry.AngularAssignment.Api.Features.Users;
 
 [Produces(MediaTypeNames.Application.Json)]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase
+public class ProfileController : ControllerBase
 {
-    private readonly UserService _service;
+    private readonly ProfileService _service;
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
