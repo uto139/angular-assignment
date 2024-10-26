@@ -1,23 +1,25 @@
 <div class="blog-post mat-elevation-z3">
   <div class="header">
-    <img class="thumbnail" src="/assets/images/main_image.jpg" alt="Thumbnail" />
+    <img class="thumbnail" src="/assets/images/main_image.jpg"/>
     <div class="post-details">
       <h2 mat-line>{{ post.title }}</h2>
-      <p class="post-meta">
-        Posted {{ post.createdOn | date }} by Some Person
-      </p>
+        <p class="post-meta">{{ strings.postedBy('Some Person', (post.createdOn | date)) }}</p>
     </div>
     <div class="post-actions">
-      <button mat-raised-button class="custom-black-button" (click)="openEditDialog()">Edit</button>
-      <button mat-raised-button class="custom-black-button" (click)="onDelete()">Delete</button>
+      <button mat-raised-button class="custom-black-button" (click)="openEditDialog()">
+        {{ strings.edit }}
+      </button>
+      <button mat-raised-button class="custom-black-button" (click)="onDelete()">
+        {{ strings.delete }}
+      </button>
     </div>
   </div>
   <p class="text">
     {{post.text}}
   </p>
   <div class="image-gallery">
-    <img class="gallery-item" src="/assets/images/attachment_image1.jpg" alt="" />
-    <img class="gallery-item" src="/assets/images/attachment_image2.jpg" alt="" />
-    <img class="gallery-item" src="/assets/images/attachment_image3.jpg" alt="" />
+    <img class="gallery-item" src="/assets/images/attachment_image1.jpg"/>
+    <img class="gallery-item" src="/assets/images/attachment_image2.jpg"/>
+    <img class="gallery-item" src="/assets/images/attachment_image3.jpg"/>
   </div>
 </div>

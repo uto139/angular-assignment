@@ -55,7 +55,7 @@ export class BlogPostEditDialogComponent {
     });
   }
 
-  onPost(): void {
+  onSubmit(): void {
     if (this.postForm.valid) {
       const updatedData = {
         id: this.data?.id,
