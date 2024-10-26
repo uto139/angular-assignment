@@ -16,7 +16,7 @@ export class BlogPostComponent {
     edit: $localize`:@@blogPosts.blog-post-edit.action.edit:Edit`,
     delete: $localize`:@@blogPosts.blog-post-edit.action.delete:Delete`,
     postedBy: (user: string, date: string | null) =>
-      $localize`:@@blogPosts.blog-post-edit.meta.postedByWithUserAndDate:Posted on ${date} by ${user}`
+      $localize`:@@blogPosts.blog-post-edit.meta.postedByWithUserAndDate:Posted on ${date}:date: by ${user}:user:`
   };
 
   constructor(

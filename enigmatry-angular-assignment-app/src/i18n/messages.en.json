@@ -4,7 +4,7 @@
     "app.title": "Entry Blueprint App",
     "blogPosts.blog-post-edit.action.delete": "Delete",
     "blogPosts.blog-post-edit.action.edit": "Edit",
-    "blogPosts.blog-post-edit.meta.postedByWithUserAndDate": "Posted on {$PH} by {$PH_1}",
+    "blogPosts.blog-post-edit.meta.postedByWithUserAndDate": "Posted on {$date} by {$user}",
     "enum.blog-post-category.marketing": "Marketing",
     "enum.blog-post-category.sales": "Sales",
     "enum.blog-post-category.service": "Service",
