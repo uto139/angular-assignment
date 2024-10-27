@@ -15,7 +15,6 @@
           {{ labels.pattern(labels.titleLabel) }}
         </mat-error>
       </mat-form-field>
-      
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>{{ labels.textLabel }}</mat-label>
         <textarea matInput formControlName="text" placeholder="{{ labels.textLabel }}"></textarea>
@@ -26,7 +25,6 @@
           {{ labels.maxLength(labels.textLabel, textMaxLength) }}
         </mat-error>
       </mat-form-field>
-
       <mat-form-field *ngIf="isEditMode" appearance="fill" class="full-width">
         <mat-label>{{ labels.categoriesLabel }}</mat-label>
         <mat-select formControlName="categories" multiple>
@@ -35,7 +33,6 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
       <div mat-dialog-actions class="dialog-actions">
         <button type="submit" mat-button class="custom-black-button">{{ labels.submitButton }}</button>
         <button type="button" mat-button class="custom-black-button" (click)="onCancel()">{{ labels.cancelButton }}</button>
