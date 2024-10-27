@@ -11,7 +11,12 @@
     "enum.blog-post-category.sales": "Sales",
     "enum.blog-post-category.service": "Service",
     "enum.blog-post-category.website": "Website",
+    "main-menu.languages.dutch": "Dutch",
+    "main-menu.languages.english": "English",
+    "main-menu.languages.serbian": "Serbian",
+    "main-menu.my-profile": "My Profile",
     "route.blogs": "Blogs",
-    "route.profile": "Profile"
+    "route.profile": "Profile",
+    "side-menu.categories.title": "Blog categories"
   }
 }

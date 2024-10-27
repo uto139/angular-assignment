@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { BlogPostCategory } from '@api';
 import { RouteSegments } from '@shared/model/route-segments';
 import { filter } from 'rxjs';
+import { BlogCategoryMenuItem } from './model/blog-category-menu-item.model';
 
 @Component({
   selector: 'app-menu',
@@ -10,7 +11,7 @@ import { filter } from 'rxjs';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  menuItems: { key: string; value: number }[] = [];
+  menuItems: BlogCategoryMenuItem[] = [];
   isBlogsRoute: boolean = false;
 
   constructor(private readonly router: Router) {
@@ -25,9 +26,28 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  getEnumValues(enumObj: any): { key: string; value: number }[] {
+  getEnumValues(enumObj: any): BlogCategoryMenuItem[] {
     return Object.keys(enumObj)
       .filter(key => isNaN(Number(key)))
-      .map(key => ({ key, value: enumObj[key] }));
+      .map(key => ({
+        key,
+        value: enumObj[key],
+        displayName: this.getLocalizedDisplayName(key)
+      }));
+  }
+
+  private getLocalizedDisplayName(key: string): string {
+    switch (key) {
+      case 'Marketing':
+        return $localize`:@@enum.blog-post-category.marketing:Marketing`;
+      case 'Sales':
+        return $localize`:@@enum.blog-post-category.sales:Sales`;
+      case 'Service':
+        return $localize`:@@enum.blog-post-category.service:Service`;
+      case 'Website':
+        return $localize`:@@enum.blog-post-category.website:Website`;
+      default:
+        return key;
+    }
   }
 }

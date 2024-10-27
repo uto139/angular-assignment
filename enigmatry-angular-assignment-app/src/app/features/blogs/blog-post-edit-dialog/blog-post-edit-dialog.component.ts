@@ -24,7 +24,7 @@ export class BlogPostEditDialogComponent {
   ];
 
   constructor(
-    private readonly client: BlogPostsClient,
+    private readonly client: BlogPostsClient, 
     private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<BlogPostEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BlogPost
