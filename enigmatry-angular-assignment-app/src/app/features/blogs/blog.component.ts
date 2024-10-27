@@ -10,6 +10,11 @@ import { BlogPostDialogService } from '@features/blogs/blog-post-edit-dialog/ser
 export class BlogComponent implements OnInit {
   posts: GetBlogPostsResponse[] = [];
 
+  readonly labels = {
+    title: $localize`:@@blogs.blog.title:Welcome to My Blog`,
+    addPost: $localize`:@@blogs.blog.action.add:Add post`
+  };
+
   constructor(
     private readonly client: BlogPostsClient,
     private readonly blogPostDialogService: BlogPostDialogService

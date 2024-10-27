@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import { RouteSegments } from '@shared/model/route-segments';
 import { debounceTime, distinctUntilChanged, filter } from 'rxjs';
+import { getCurrentLanguage, Language, setCurrentLanguage } from 'src/i18n/language';
 import { MAIN_MENU_CONSTANTS } from './main-menu-constants';
 
 @Component({
@@ -15,6 +16,7 @@ export class MainMenuComponent implements OnInit {
 
   searchControl = new FormControl('');
   searchVisible: boolean = false;
+  currentLanguage: Language = getCurrentLanguage();
 
   constructor(private readonly router: Router) { }
 
@@ -40,5 +42,14 @@ export class MainMenuComponent implements OnInit {
       queryParams: { keyword: query || null },
       queryParamsHandling: 'merge'
     });
+  }
+
+  changeLanguage(lang: Language): void {
+    if (lang) {
+      setCurrentLanguage(lang);
+      this.currentLanguage = lang;
+
+      window.location.reload(); // Optional: reload to apply language immediately
+    }
   }
 }

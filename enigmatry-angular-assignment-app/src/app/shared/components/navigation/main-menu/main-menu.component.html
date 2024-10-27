@@ -1,16 +1,13 @@
 <mat-toolbar color="primary">
   <a mat-button class="navbar-blog" [routerLink]="['/blogs']">My Blog</a>
-
   <div class="navbar-search" *ngIf="searchVisible">
     <input [formControl]="searchControl" type="text" placeholder="Search..." />
   </div>
-
   <nav class="navbar-links">
-    <a mat-button routerLink="#">Link 1</a>
-    <a mat-button routerLink="#">Link 2</a>
-    <a mat-button routerLink="#">Link 3</a>
+    <a mat-button (click)="changeLanguage('nl')">Dutch</a>
+    <a mat-button (click)="changeLanguage('en')">English</a>
+    <a mat-button (click)="changeLanguage('en')">Serbian</a>
   </nav>
-
   <div class="navbar-profile">
     <a mat-button [routerLink]="['/profile']">My Profile</a>
     <a mat-button routerLink="#">Logout</a>

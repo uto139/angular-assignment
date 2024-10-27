@@ -3,14 +3,14 @@
     <img class="thumbnail" src="/assets/images/main_image.jpg"/>
     <div class="post-details">
       <h2 mat-line>{{ post.title }}</h2>
-        <p class="post-meta">{{ strings.postedBy('Some Person', (post.createdOn | date)) }}</p>
+        <p class="post-meta">{{ labels.postedBy('Some Person', (post.createdOn | date)) }}</p>
     </div>
     <div class="post-actions">
       <button mat-raised-button class="custom-black-button" (click)="openEditDialog()">
-        {{ strings.edit }}
+        {{ labels.edit }}
       </button>
       <button mat-raised-button class="custom-black-button" (click)="onDelete()">
-        {{ strings.delete }}
+        {{ labels.delete }}
       </button>
     </div>
   </div>

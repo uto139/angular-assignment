@@ -5,6 +5,8 @@
     "blogPosts.blog-post-edit.action.delete": "Verwijderen",
     "blogPosts.blog-post-edit.action.edit": "Bewerken",
     "blogPosts.blog-post-edit.meta.postedByWithUserAndDate": "Geplaatst op {$date} door {$user}",
+    "blogs.blog.action.add": "Toevoegen",
+    "blogs.blog.title": "Welkom op mijn blog",
     "common.no": "Nee",
     "common.yes": "Ja",
     "enum.product-type.book": "Boek",

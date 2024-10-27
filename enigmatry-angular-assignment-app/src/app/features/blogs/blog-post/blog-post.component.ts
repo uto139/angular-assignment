@@ -12,7 +12,7 @@ export class BlogPostComponent {
   @Input() post: GetBlogPostsResponse;
   @Output() postDeleted = new EventEmitter<GetBlogPostsResponse>();
 
-  readonly strings = {
+  readonly labels = {
     edit: $localize`:@@blogPosts.blog-post-edit.action.edit:Edit`,
     delete: $localize`:@@blogPosts.blog-post-edit.action.delete:Delete`,
     postedBy: (user: string, date: string | null) =>

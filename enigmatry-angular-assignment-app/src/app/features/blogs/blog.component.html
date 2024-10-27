@@ -1,6 +1,6 @@
 <section>
-  <h1 class="mat-headline-3 align-center">Welcome to My Blog</h1>
-  <app-application-message/>
-  <button mat-raised-button class="custom-black-button" (click)="openCreateDialog()">Add post</button>
+  <h1 class="mat-headline-3 align-center">{{ labels.title }}</h1>
+  <app-application-message />
+  <button mat-raised-button class="custom-black-button" (click)="openCreateDialog()">{{ labels.addPost }}</button>
   <app-blog-post-list [posts]="posts"></app-blog-post-list>
 </section>

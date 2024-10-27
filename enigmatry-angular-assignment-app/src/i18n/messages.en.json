@@ -5,6 +5,8 @@
     "blogPosts.blog-post-edit.action.delete": "Delete",
     "blogPosts.blog-post-edit.action.edit": "Edit",
     "blogPosts.blog-post-edit.meta.postedByWithUserAndDate": "Posted on {$date} by {$user}",
+    "blogs.blog.action.add": "Add post",
+    "blogs.blog.title": "Welcome to My Blog",
     "enum.blog-post-category.marketing": "Marketing",
     "enum.blog-post-category.sales": "Sales",
     "enum.blog-post-category.service": "Service",
