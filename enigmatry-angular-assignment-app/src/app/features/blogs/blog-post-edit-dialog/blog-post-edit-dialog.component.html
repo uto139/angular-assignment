@@ -1,41 +1,44 @@
 <div class="blog-post-edit-dialog">
-  <h1 mat-dialog-title>Add/Edit blog post</h1>
+  <h1 mat-dialog-title>{{ labels.dialogTitle }}</h1>
   <div mat-dialog-content>
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title" placeholder="Title of the post" />
+        <mat-label>{{ labels.titleLabel }}</mat-label>
+        <input matInput formControlName="title" placeholder="{{ labels.titleLabel }}" />
         <mat-error *ngIf="postForm.get('title')?.hasError('required') && postForm.get('title')?.touched">
-          Title is required.
+          {{ labels.required(labels.titleLabel) }}
         </mat-error>
         <mat-error *ngIf="postForm.get('title')?.hasError('maxlength') && postForm.get('title')?.touched">
-          Title cannot exceed {{ titleMaxLength }} characters.
+          {{ labels.maxLength(labels.titleLabel, titleMaxLength) }}
         </mat-error>
         <mat-error *ngIf="postForm.get('title')?.hasError('pattern') && postForm.get('title')?.touched">
-          Title can only contain letters, numbers, and spaces.
+          {{ labels.pattern(labels.titleLabel) }}
         </mat-error>
       </mat-form-field>
+      
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Text</mat-label>
-        <textarea matInput formControlName="text" placeholder="Text of the post"></textarea>
+        <mat-label>{{ labels.textLabel }}</mat-label>
+        <textarea matInput formControlName="text" placeholder="{{ labels.textLabel }}"></textarea>
         <mat-error *ngIf="postForm.get('text')?.hasError('required') && postForm.get('text')?.touched">
-          Text is required.
+          {{ labels.required(labels.textLabel) }}
         </mat-error>
         <mat-error *ngIf="postForm.get('text')?.hasError('maxlength') && postForm.get('text')?.touched">
-          Text cannot exceed {{ textMaxLength }}  characters.
+          {{ labels.maxLength(labels.textLabel, textMaxLength) }}
         </mat-error>
       </mat-form-field>
+
       <mat-form-field *ngIf="isEditMode" appearance="fill" class="full-width">
-        <mat-label>Categories</mat-label>
+        <mat-label>{{ labels.categoriesLabel }}</mat-label>
         <mat-select formControlName="categories" multiple>
           <mat-option *ngFor="let category of categories" [value]="category.value">
             {{ category.displayName }}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
       <div mat-dialog-actions class="dialog-actions">
-        <button type="submit" mat-button class="custom-black-button">Post</button>
-        <button type="button" mat-button class="custom-black-button" (click)="onCancel()">Cancel</button>
+        <button type="submit" mat-button class="custom-black-button">{{ labels.submitButton }}</button>
+        <button type="button" mat-button class="custom-black-button" (click)="onCancel()">{{ labels.cancelButton }}</button>
       </div>
     </form>
   </div>

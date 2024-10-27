@@ -5,6 +5,12 @@
     "blogPosts.blog-post-edit.action.delete": "Delete",
     "blogPosts.blog-post-edit.action.edit": "Edit",
     "blogPosts.blog-post-edit.meta.postedByWithUserAndDate": "Posted on {$date} by {$user}",
+    "blogs.blog-post-edit-dialog.cancel.button": "Cancel",
+    "blogs.blog-post-edit-dialog.categories.label": "Categories",
+    "blogs.blog-post-edit-dialog.dialog-title": "Add/Edit blog post",
+    "blogs.blog-post-edit-dialog.submit.button": "Post",
+    "blogs.blog-post-edit-dialog.text.label": "Text",
+    "blogs.blog-post-edit-dialog.title.label": "Title",
     "blogs.blog.action.add": "Add post",
     "blogs.blog.title": "Welcome to My Blog",
     "enum.blog-post-category.marketing": "Marketing",
@@ -17,6 +23,11 @@
     "main-menu.my-profile": "My Profile",
     "route.blogs": "Blogs",
     "route.profile": "Profile",
-    "side-menu.categories.title": "Blog categories"
+    "side-menu.categories.title": "Blog categories",
+    "validators.maxLength": "{$property-name} value should be less than {$max-value} characters",
+    "validators.min": "{$property-name} value should be more than {$min-value}",
+    "validators.minLength": "{$property-name} should have at least {$min-value} characters",
+    "validators.pattern": "{$property-name} is not in valid format",
+    "validators.required": "{$property-name} is required"
   }
 }

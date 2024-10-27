@@ -16,6 +16,22 @@ export class BlogPostEditDialogComponent {
   titleMaxLength = BLOG_POST_DIALOG_CONSTANTS.TITLE_MAX_LENGTH;
   textMaxLength = BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH;
 
+  readonly labels = {
+    dialogTitle: $localize`:@@blogs.blog-post-edit-dialog.dialog-title:Add/Edit blog post`,
+    titleLabel: $localize`:@@blogs.blog-post-edit-dialog.title.label:Title`,
+    textLabel: $localize`:@@blogs.blog-post-edit-dialog.text.label:Text`,
+    categoriesLabel: $localize`:@@blogs.blog-post-edit-dialog.categories.label:Categories`,
+    submitButton: $localize`:@@blogs.blog-post-edit-dialog.submit.button:Post`,
+    cancelButton: $localize`:@@blogs.blog-post-edit-dialog.cancel.button:Cancel`,
+    required: (propertyName: string) =>
+      $localize`:@@validators.required:${propertyName} is required`,
+    maxLength: (propertyName: string, maxLength: number) =>
+      $localize`:@@validators.maxLength:${propertyName} value should be less than ${maxLength}:max-value: characters`,
+    pattern: (propertyName: string) =>
+      $localize`:@@validators.pattern:${propertyName} is not in valid format`
+  };
+
+
   categories: any[] = [
     { value: BlogPostCategory.Marketing, displayName: $localize`:@@enum.blog-post-category.marketing:Marketing` },
     { value: BlogPostCategory.Sales, displayName: $localize`:@@enum.blog-post-category.sales:Sales` },
@@ -24,7 +40,7 @@ export class BlogPostEditDialogComponent {
   ];
 
   constructor(
-    private readonly client: BlogPostsClient, 
+    private readonly client: BlogPostsClient,
     private readonly fb: FormBuilder,
     public dialogRef: MatDialogRef<BlogPostEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BlogPost

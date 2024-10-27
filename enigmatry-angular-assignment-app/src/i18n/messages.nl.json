@@ -5,6 +5,12 @@
     "blogPosts.blog-post-edit.action.delete": "Verwijderen",
     "blogPosts.blog-post-edit.action.edit": "Bewerken",
     "blogPosts.blog-post-edit.meta.postedByWithUserAndDate": "Geplaatst op {$date} door {$user}",
+    "blogs.blog-post-edit-dialog.cancel.button": "Cancel",
+    "blogs.blog-post-edit-dialog.categories.label": "Categories",
+    "blogs.blog-post-edit-dialog.dialog-title": "Add/Edit blog post",
+    "blogs.blog-post-edit-dialog.submit.button": "Post",
+    "blogs.blog-post-edit-dialog.text.label": "Text",
+    "blogs.blog-post-edit-dialog.title.label": "Title",
     "blogs.blog.action.add": "Toevoegen",
     "blogs.blog.title": "Welkom op mijn blog",
     "enum.blog-post-category.marketing": "Marketing",
@@ -18,14 +24,10 @@
     "route.blogs": "Blogs",
     "route.profile": "Profile",
     "side-menu.categories.title": "Blogcategorieën",
-    "validators.max": "De waarde van {$property-name} moet minder zijn dan {$max-value}",
     "validators.maxLength": "De waarde van {$property-name} moet minder zijn dan {$max-value} tekens",
     "validators.min": "De waarde van {$property-name} moet meer zijn dan {$min-value}",
     "validators.minLength": "{$property-name} moet minstens {$min-value} tekens bevatten",
     "validators.pattern": "{$property-name} heeft geen geldig formaat",
-    "validators.pattern.emailAddress": "Ongeldig e-mailadresformaat",
-    "validators.productCodeIsUnique": "Code is niet uniek",
-    "validators.productNameIsUnique": "Naam is niet uniek",
     "validators.required": "{$property-name} is verplicht"
   }
 }
