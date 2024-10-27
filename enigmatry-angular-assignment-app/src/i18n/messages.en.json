@@ -25,8 +25,6 @@
     "route.profile": "Profile",
     "side-menu.categories.title": "Blog categories",
     "validators.maxLength": "{$property-name} value should be less than {$max-value} characters",
-    "validators.min": "{$property-name} value should be more than {$min-value}",
-    "validators.minLength": "{$property-name} should have at least {$min-value} characters",
     "validators.pattern": "{$property-name} is not in valid format",
     "validators.required": "{$property-name} is required"
   }

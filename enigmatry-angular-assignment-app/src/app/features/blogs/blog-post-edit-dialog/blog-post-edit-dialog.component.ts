@@ -24,11 +24,11 @@ export class BlogPostEditDialogComponent {
     submitButton: $localize`:@@blogs.blog-post-edit-dialog.submit.button:Post`,
     cancelButton: $localize`:@@blogs.blog-post-edit-dialog.cancel.button:Cancel`,
     required: (propertyName: string) =>
-      $localize`:@@validators.required:${propertyName} is required`,
+      $localize`:@@validators.required:${propertyName}:property-name: is required`,
     maxLength: (propertyName: string, maxLength: number) =>
-      $localize`:@@validators.maxLength:${propertyName} value should be less than ${maxLength}:max-value: characters`,
+      $localize`:@@validators.maxLength:${propertyName}:property-name: value should be less than ${maxLength}:max-value: characters`,
     pattern: (propertyName: string) =>
-      $localize`:@@validators.pattern:${propertyName} is not in valid format`
+      $localize`:@@validators.pattern:${propertyName}:property-name: is not in valid format`
   };
 
 
