@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
 import { RouteSegments } from '@shared/model/route-segments';
@@ -12,8 +12,6 @@ import { MAIN_MENU_CONSTANTS } from './main-menu-constants';
   styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent implements OnInit {
-  @Input() onLogout: () => void;
-
   searchControl = new FormControl('');
   searchVisible: boolean = false;
   currentLanguage: Language = getCurrentLanguage();

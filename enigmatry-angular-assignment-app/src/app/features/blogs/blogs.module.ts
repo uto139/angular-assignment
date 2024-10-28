@@ -13,6 +13,7 @@ import { BlogPostComponent } from './blog-post/blog-post.component';
 import { BlogPostEditDialogComponent } from './blog-post-edit-dialog/blog-post-edit-dialog.component';
 import { BlogPostListComponent } from './blog-post-list/blog-post-list.component';
 import { BlogComponent } from './blog.component';
+import { BlogsRoutingModule } from './blogs-routing.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { BlogComponent } from './blog.component';
     NotificationModule,
     FormsModule,
     ReactiveFormsModule,
+    BlogsRoutingModule,
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -35,4 +37,4 @@ import { BlogComponent } from './blog.component';
     MatInputModule
   ]
 })
-export class BlogModule { }
+export class BlogsModule { }
