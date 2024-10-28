@@ -3,15 +3,15 @@ using Enigmatry.AngularAssignment.Api.Models.BlogPosts;
 using Enigmatry.AngularAssignment.Api.Models.Users;
 using JetBrains.Annotations;
 
-namespace Enigmatry.AngularAssignment.Api.Features.Users;
+namespace Enigmatry.AngularAssignment.Api.Features.Profiles;
 
 public static class GetProfile
 {
-    public class Request 
+    public class Request
     {
     }
 
-    public class Response 
+    public class Response
     {
         public Guid UserId { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = String.Empty;

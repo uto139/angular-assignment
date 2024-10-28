@@ -2,7 +2,7 @@
 using Enigmatry.AngularAssignment.Api.Filters;
 using Enigmatry.AngularAssignment.Api.Models.BlogPosts;
 using Enigmatry.AngularAssignment.Api.Services.BlogPosts;
-using Enigmatry.AngularAssignment.Api.Services.Users;
+using Enigmatry.AngularAssignment.Api.Services.Profiles;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 

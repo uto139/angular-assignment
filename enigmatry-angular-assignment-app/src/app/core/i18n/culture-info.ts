@@ -1,4 +1,4 @@
-import { nl, enUS } from 'date-fns/locale';
+import { nl, enUS, srLatn } from 'date-fns/locale';
 import { Language } from 'src/i18n/language';
 
 export interface CultureInfo {
@@ -17,5 +17,10 @@ export const cultures: Record<Language, CultureInfo> = {
     datePipeFormat: 'EEEE, d MMMM yyyy',
     matDateFormat: 'dd-MM-yyyy',
     matDateLocale: nl
+  },
+  srLatn: {
+    datePipeFormat: 'EEEE, d. MMMM yyyy.',
+    matDateFormat: 'dd.MM.yyyy',
+    matDateLocale: srLatn
   }
 };

@@ -1,10 +1,10 @@
-﻿using Enigmatry.AngularAssignment.Api.Features.Users;
+﻿using Enigmatry.AngularAssignment.Api.Features.Profiles;
 
-namespace Enigmatry.AngularAssignment.Api.Services.Users;
+namespace Enigmatry.AngularAssignment.Api.Services.Profiles;
 
 public class ProfileService
 {
-    public async Task<GetProfile.Response> GetProfile() 
+    public async Task<GetProfile.Response> GetProfile()
     {
         return new GetProfile.Response()
         {

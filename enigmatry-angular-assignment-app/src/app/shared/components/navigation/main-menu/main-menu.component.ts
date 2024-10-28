@@ -19,7 +19,7 @@ export class MainMenuComponent implements OnInit {
   currentLanguage: Language = getCurrentLanguage();
   readonly labels = {
     myProfile: $localize`:@@main-menu.my-profile:My Profile`,
-    myBlog: $localize`:@@main-menu.my-profile:My Blog`,
+    myBlog: $localize`:@@main-menu.my-blog:My Blog`,
     dutch: $localize`:@@main-menu.languages.dutch:Dutch`,
     english: $localize`:@@main-menu.languages.english:English`,
     serbian: $localize`:@@main-menu.languages.serbian:Serbian`
