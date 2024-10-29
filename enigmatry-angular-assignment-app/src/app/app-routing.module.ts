@@ -15,6 +15,11 @@ const routes: Routes = [
         path: RouteSegments.profile,
         component: ProfileComponent,
         title: $localize`:@@route.profile:Profile`
+    },
+    {
+        path: RouteSegments.errors,
+        loadChildren: () => import('./features/errors/errors.module')
+            .then(module => module.ErrorsModule)
     }
 ];
 

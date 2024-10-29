@@ -5,6 +5,7 @@ import { AcceptLanguageInterceptor } from '@enigmatry/entry-components';
 import { GlobalErrorHandler } from '@services/global-error-handler';
 import { PageTitleStrategy } from '@services/page-title-strategy';
 import { provideCurrencyCode, provideDatePipeOptions } from './i18n/localization';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   imports: [],
@@ -22,6 +23,11 @@ import { provideCurrencyCode, provideDatePipeOptions } from './i18n/localization
       useClass: AcceptLanguageInterceptor,
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+  },
     provideCurrencyCode(),
     provideDatePipeOptions()
   ]
