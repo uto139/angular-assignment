@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'enigmatry-entry-blueprint-app';
+  title = 'enigmatry-angular-assignment-app';
 }

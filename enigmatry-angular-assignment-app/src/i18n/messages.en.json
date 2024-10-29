@@ -1,7 +1,7 @@
 {
   "locale": "en-US",
   "translations": {
-    "app.title": "Entry Blueprint App",
+    "app.title": "Blog App",
     "blogPosts.blog-post-edit.action.delete": "Delete",
     "blogPosts.blog-post-edit.action.edit": "Edit",
     "blogPosts.blog-post-edit.meta.postedByWithUserAndDate": "Posted on {$date} by {$user}",
