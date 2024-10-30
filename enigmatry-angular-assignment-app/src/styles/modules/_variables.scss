@@ -4,8 +4,15 @@ $breakpoints: (
 	desktop: (description: 'lg', size: 992px),
 	largeDesktop: (description: 'xl', size: 1200px));
 
-$primary: #2581C4;
+$primary: #000;
 $accent: #EA518D;
 $menu-background: #CC2E2E;
 
 $default-gap: 16px;
+
+$navbar-background-color: #000;
+$navbar-text-color: #FFF;
+$navbar-hover-color: #CCC;
+$navbar-brand-size: 1.1rem;
+$navbar-search-width: 200px;
+$navbar-height: 10px;

@@ -20,8 +20,8 @@ export class ProfileComponent implements OnInit {
     private readonly client: ProfileClient
   ) { }
 
-
   ngOnInit(): void {
+    debugger;
     this.client.getProfile().subscribe(response => {
       this.model = response;
     }
