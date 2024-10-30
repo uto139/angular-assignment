@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogPostsClient, GetBlogPostsResponse } from '@api';
 import { BlogPostEditDialogComponent } from '../blog-post-edit-dialog/blog-post-edit-dialog.component';
@@ -10,7 +15,8 @@ import { BlogPostEditDialogComponent } from '../blog-post-edit-dialog/blog-post-
 })
 export class BlogPostComponent {
   @Input() post: GetBlogPostsResponse;
-  @Output() postDeleted = new EventEmitter<GetBlogPostsResponse>();
+  @Output() delete = new EventEmitter<GetBlogPostsResponse>();
+  @Output() update = new EventEmitter<void>();
 
   readonly labels = {
     edit: $localize`:@@blogPosts.blog-post-edit.action.edit:Edit`,
@@ -37,7 +43,7 @@ export class BlogPostComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.post = result;
+        this.update.emit();
       }
     });
   }
@@ -45,7 +51,7 @@ export class BlogPostComponent {
   onDelete(): void {
     if (this.post.id !== null) {
       this.client.delete(this.post.id ?? '').subscribe(() => {
-        this.postDeleted.emit(this.post);
+        this.delete.emit(this.post);
       });
     }
   }

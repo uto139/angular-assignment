@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BlogPost, BlogPostCategory, BlogPostsClient } from '@api';
@@ -7,8 +7,10 @@ import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-dialog-constants';
 @Component({
   selector: 'app-blog-post-edit-dialog',
   templateUrl: './blog-post-edit-dialog.component.html',
-  styleUrls: ['./blog-post-edit-dialog.component.scss']
+  styleUrls: ['./blog-post-edit-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class BlogPostEditDialogComponent {
   postForm: FormGroup;
   isEditMode: boolean;

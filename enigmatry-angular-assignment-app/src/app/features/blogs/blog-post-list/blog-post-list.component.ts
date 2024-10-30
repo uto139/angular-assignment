@@ -1,45 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BlogPostsClient, GetBlogPostsResponse } from '@api';
-import { GetBlogPostsQuery } from '@features/blogs/models/get-blog-posts-query';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { GetBlogPostsResponse } from '@api';
 
 @Component({
   selector: 'app-blog-post-list',
   templateUrl: './blog-post-list.component.html',
-  styleUrls: ['./blog-post-list.component.scss']
+  styleUrls: ['./blog-post-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogPostListComponent implements OnInit {
+export class BlogPostListComponent {
   @Input() posts: GetBlogPostsResponse[];
-  query: GetBlogPostsQuery = new GetBlogPostsQuery();
+  @Output() postUpdated = new EventEmitter<void>();
 
-  constructor(
-    private readonly client: BlogPostsClient,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.query.applyRouteChanges(params);
-      this.loadPosts();
-    });
-  }
-
-  loadPosts(): void {
-    const keyword = this.query.keyword.value;
-    const category = this.query.category.value;
-    this.client.search(keyword, category).subscribe(response => {
-      this.posts = response;
-    });
-  }
-
-  onPostDeleted(deletedPost: GetBlogPostsResponse): void {
+  onDeleted(deletedPost: GetBlogPostsResponse): void {
     this.posts = this.posts.filter(post => post.id !== deletedPost.id);
   }
 
-  onFilterChange(searchParams: any): void {
-    this.query.searchFilterChange(searchParams);
-    const queryParams = this.query.getRouteQueryParams();
-    this.router.navigate([], { queryParams });
+  onUpdated() {
+    this.postUpdated.emit();
   }
 }
