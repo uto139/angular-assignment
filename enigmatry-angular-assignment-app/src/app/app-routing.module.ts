@@ -5,7 +5,11 @@ import { RouteSegments } from '@shared/model/route-segments';
 
 
 const routes: Routes = [
-    { path: '', redirectTo: RouteSegments.blogs, pathMatch: 'full' },
+    {
+        path: RouteSegments.root,
+        redirectTo: `/${RouteSegments.blogs}`,
+        pathMatch: 'full'
+    },
     {
         path: RouteSegments.blogs,
         loadChildren: () => import('./features/blogs/blogs.module').then(module => module.BlogsModule),
