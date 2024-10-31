@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogPostsClient, GetBlogPostsResponse } from '@api';
-import { BlogPostEditDialogComponent } from '../blog-post-edit-dialog/blog-post-edit-dialog.component';
+import { BlogPostEditDialogComponent } from '../../blog-post-edit-dialog/blog-post-edit-dialog.component';
 
 @Component({
   selector: 'app-blog-post',

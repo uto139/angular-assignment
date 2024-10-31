@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-application-message',
   templateUrl: './application-message.component.html',
-  styleUrl: './application-message.component.scss'
+  styleUrl: './application-message.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicationMessageComponent implements OnInit {
   @Input() message: string = 'Hello Blogger!';
