@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    debugger;
     this.client.getProfile().subscribe(response => {
       this.model = response;
     }
