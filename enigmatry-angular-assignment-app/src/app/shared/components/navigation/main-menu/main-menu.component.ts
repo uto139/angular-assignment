@@ -53,7 +53,7 @@ export class MainMenuComponent implements OnInit {
       setCurrentLanguage(lang);
       this.currentLanguage = lang;
 
-      window.location.reload(); // Optional: reload to apply language immediately
+      window.location.reload();
     }
   }
 }

@@ -11,7 +11,7 @@ import { BlogCategoryMenuItem } from './model/blog-category-menu-item.model';
 })
 export class MenuComponent implements OnInit {
   menuItems: BlogCategoryMenuItem[] = [];
-  isBlogsRoute: boolean = false;
+  showSideMenu: boolean = false;
 
   constructor(private readonly router: Router) {}
 
@@ -19,7 +19,7 @@ export class MenuComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      this.isBlogsRoute = this.router.url.includes(`/${RouteSegments.blogs}`);
+      this.showSideMenu = this.router.url.includes(`/${RouteSegments.blogs}`);
     });
   }
 }
