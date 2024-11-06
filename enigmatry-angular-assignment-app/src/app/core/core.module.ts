@@ -6,6 +6,7 @@ import { GlobalErrorHandler } from '@services/global-error-handler';
 import { PageTitleStrategy } from '@services/page-title-strategy';
 import { provideCurrencyCode, provideDatePipeOptions } from './i18n/localization';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { LocalStorageService } from './services/local-storage.service';
 
 @NgModule({
   imports: [],
@@ -27,9 +28,10 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true
-  },
+    },
     provideCurrencyCode(),
-    provideDatePipeOptions()
+    provideDatePipeOptions(),
+    LocalStorageService
   ]
 })
 export class CoreModule { }

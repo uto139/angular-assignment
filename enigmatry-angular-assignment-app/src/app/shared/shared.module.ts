@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponentsModule } from './components/navigation/navigation.module';
 import { NotificationModule } from './components/notification/notification.module';
 import { EntryComponentsModule } from './entry-components.module';
-
 import { MaterialModule } from './material.module';
 import { PipesModule } from './pipes/pipes.module';
 
@@ -13,7 +12,7 @@ import { PipesModule } from './pipes/pipes.module';
     CommonModule,
     MaterialModule,
     EntryComponentsModule
-  ],
+    ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
