@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BlogPost, BlogPostCategory, BlogPostsClient } from '@api';
+import { BlogPost, BlogPostsClient } from '@api';
+import { BlogCategoryService } from '@shared/services/blog-category.service';
 import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-dialog-constants';
 
 @Component({
@@ -10,10 +11,10 @@ import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-dialog-constants';
   styleUrls: ['./blog-post-edit-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
-export class BlogPostEditDialogComponent {
+export class BlogPostEditDialogComponent implements OnInit {
   postForm: FormGroup;
   isEditMode: boolean;
+  categories: any[] = [];
 
   titleMaxLength = BLOG_POST_DIALOG_CONSTANTS.TITLE_MAX_LENGTH;
   textMaxLength = BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH;
@@ -33,21 +34,21 @@ export class BlogPostEditDialogComponent {
       $localize`:@@validators.pattern:${propertyName}:property-name: is not in valid format`
   };
 
-
-  categories: any[] = [
-    { value: BlogPostCategory.Marketing, displayName: $localize`:@@enum.blog-post-category.marketing:Marketing` },
-    { value: BlogPostCategory.Sales, displayName: $localize`:@@enum.blog-post-category.sales:Sales` },
-    { value: BlogPostCategory.Service, displayName: $localize`:@@enum.blog-post-category.service:Service` },
-    { value: BlogPostCategory.Website, displayName: $localize`:@@enum.blog-post-category.website:Website` }
-  ];
-
   constructor(
     private readonly client: BlogPostsClient,
     private readonly fb: FormBuilder,
+    private readonly categoryService: BlogCategoryService,
     public dialogRef: MatDialogRef<BlogPostEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BlogPost
   ) {
     this.initializeForm();
+  }
+
+  ngOnInit(): void {
+    this.categories = this.categoryService.getCategories().map(category => ({
+      value: category.value,
+      displayName: category.displayName
+    }));
   }
 
   private initializeForm(): void {

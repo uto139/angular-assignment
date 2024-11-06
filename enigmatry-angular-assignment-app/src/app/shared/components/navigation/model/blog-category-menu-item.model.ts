@@ -1,4 +1,4 @@
-export interface BlogCategoryMenuItem {
+export interface BlogCategoryItem {
     key: string;
     value: number;
     displayName: string;

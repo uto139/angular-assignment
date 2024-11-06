@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { BlogPostCategory } from '@api';
-import { BlogCategoryMenuItem } from '../model/blog-category-menu-item.model';
+import { BlogCategoryService } from '@shared/services/blog-category.service';
+import { BlogCategoryItem } from '../model/blog-category-menu-item.model';
 
 @Component({
   selector: 'app-side-menu',
@@ -9,21 +9,22 @@ import { BlogCategoryMenuItem } from '../model/blog-category-menu-item.model';
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent implements OnInit {
-  categories: BlogCategoryMenuItem[] = [];
+  categories: BlogCategoryItem[] = [];
+  selectedCategoryKey: string | null = null;
 
   readonly labels = {
     categoriesTitle: $localize`:@@side-menu.categories.title:Blog categories`
   };
 
-  selectedCategoryKey: string | null = null;
-
   constructor(
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly categoryService: BlogCategoryService
   ) { }
 
   ngOnInit(): void {
-    this.categories = this.getCategoriesFromEnum(BlogPostCategory);
+    this.categories = this.categoryService.getCategories();
+
     this.route.queryParams.subscribe(params => {
       this.selectedCategoryKey = params.category || null;
     });
@@ -41,30 +42,5 @@ export class SideMenuComponent implements OnInit {
 
   isSelected(key: string): boolean {
     return this.selectedCategoryKey === key;
-  }
-
-  private getCategoriesFromEnum(enumObj: any): BlogCategoryMenuItem[] {
-    return Object.keys(enumObj)
-      .filter(key => isNaN(Number(key)))
-      .map(key => ({
-        key,
-        value: enumObj[key],
-        displayName: this.getLocalizedDisplayName(key)
-      }));
-  }
-
-  private getLocalizedDisplayName(key: string): string {
-    switch (key) {
-      case 'Marketing':
-        return $localize`:@@enum.blog-post-category.marketing:Marketing`;
-      case 'Sales':
-        return $localize`:@@enum.blog-post-category.sales:Sales`;
-      case 'Service':
-        return $localize`:@@enum.blog-post-category.service:Service`;
-      case 'Website':
-        return $localize`:@@enum.blog-post-category.website:Website`;
-      default:
-        return key;
-    }
   }
 }

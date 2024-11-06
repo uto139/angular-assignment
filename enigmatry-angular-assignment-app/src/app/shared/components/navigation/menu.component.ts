@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RouteSegments } from '@shared/model/route-segments';
 import { filter } from 'rxjs';
-import { BlogCategoryMenuItem } from './model/blog-category-menu-item.model';
+import { BlogCategoryItem } from './model/blog-category-menu-item.model';
 
 @Component({
   selector: 'app-menu',
@@ -10,7 +10,7 @@ import { BlogCategoryMenuItem } from './model/blog-category-menu-item.model';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  menuItems: BlogCategoryMenuItem[] = [];
+  menuItems: BlogCategoryItem[] = [];
   showSideMenu: boolean = false;
 
   constructor(private readonly router: Router) {}
