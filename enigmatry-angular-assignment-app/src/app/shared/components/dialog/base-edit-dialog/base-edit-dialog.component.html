@@ -1,0 +1,14 @@
+<div class="base-dialog">
+    <h1 mat-dialog-title>{{ title }}</h1>
+    <div mat-dialog-content>
+        <ng-content></ng-content>
+    </div>
+    <div mat-dialog-actions class="dialog-actions">
+        <button type="button" mat-button class="action-button cancel-button" (click)="onCancel()">
+            {{ cancelText }}
+        </button>
+        <button type="button" mat-button class="action-button submit-button" color="primary" (click)="onSubmit()">
+            {{ submitText }}
+        </button>
+    </div>
+</div>

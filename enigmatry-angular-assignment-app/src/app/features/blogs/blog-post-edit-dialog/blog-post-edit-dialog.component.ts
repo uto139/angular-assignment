@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BlogPost, BlogPostsClient } from '@api';
+import { BaseEditDialogComponent } from '@shared/components/dialog/base-edit-dialog/base-edit-dialog.component';
 import { BlogCategoryService } from '@shared/services/blog-category.service';
 import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-dialog-constants';
+import { getBlogPostEditDialogLabels } from './models/blog-post-edit-dialog-extensions';
 
 @Component({
   selector: 'app-blog-post-edit-dialog',
@@ -11,7 +13,7 @@ import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-dialog-constants';
   styleUrls: ['./blog-post-edit-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BlogPostEditDialogComponent implements OnInit {
+export class BlogPostEditDialogComponent extends BaseEditDialogComponent implements OnInit {
   postForm: FormGroup;
   isEditMode: boolean;
   categories: any[] = [];
@@ -20,12 +22,7 @@ export class BlogPostEditDialogComponent implements OnInit {
   textMaxLength = BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH;
 
   readonly labels = {
-    dialogTitle: $localize`:@@blogs.blog-post-edit-dialog.dialog-title:Add/Edit blog post`,
-    titleLabel: $localize`:@@blogs.blog-post-edit-dialog.title.label:Title`,
-    textLabel: $localize`:@@blogs.blog-post-edit-dialog.text.label:Text`,
-    categoriesLabel: $localize`:@@blogs.blog-post-edit-dialog.categories.label:Categories`,
-    submitButton: $localize`:@@blogs.blog-post-edit-dialog.submit.button:Post`,
-    cancelButton: $localize`:@@blogs.blog-post-edit-dialog.cancel.button:Cancel`,
+    ...getBlogPostEditDialogLabels(),
     required: (propertyName: string) =>
       $localize`:@@validators.required:${propertyName}:property-name: is required`,
     maxLength: (propertyName: string, maxLength: number) =>
@@ -41,6 +38,7 @@ export class BlogPostEditDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<BlogPostEditDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: BlogPost
   ) {
+    super();
     this.initializeForm();
   }
 
@@ -82,11 +80,13 @@ export class BlogPostEditDialogComponent implements OnInit {
       };
       this.client.createOrUpdate(updatedData).subscribe(() => {
         this.dialogRef.close(updatedData);
+        this.post.emit();
       });
     }
   }
 
   onCancel(): void {
     this.dialogRef.close();
+    this.cancel.emit();
   }
 }

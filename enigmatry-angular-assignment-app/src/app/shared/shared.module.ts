@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DialogsModule } from './components/dialog/dialogs.module';
 import { NavigationComponentsModule } from './components/navigation/navigation.module';
 import { NotificationModule } from './components/notification/notification.module';
 import { EntryComponentsModule } from './entry-components.module';
@@ -19,6 +20,7 @@ import { PipesModule } from './pipes/pipes.module';
     MaterialModule,
     EntryComponentsModule,
     NavigationComponentsModule,
+    DialogsModule,
     NotificationModule,
     PipesModule
   ],
