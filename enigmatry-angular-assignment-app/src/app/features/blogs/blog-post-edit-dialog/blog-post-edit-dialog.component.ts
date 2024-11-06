@@ -6,9 +6,9 @@ import { BaseEditDialogComponent } from '@shared/components/dialog/base-edit-dia
 import { BlogCategoryService } from '@shared/services/blog-category.service';
 import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-dialog-constants';
 
-import { getBlogPostEditDialogLabels } from './models/blog-post-edit-labels';
-import { BlogPostValidationMessages } from './models/blog-post-edit-validation-messages';
-import { BlogPostValidators } from './models/blog-post-edit-validators';
+import { getBlogPostEditDialogLabels } from './extensions/blog-post-edit-dialog-labels';
+import { BlogPostValidationMessages } from './extensions/blog-post-edit-dialog-validation-messages';
+import { BlogPostValidators } from './extensions/blog-post-edit-dialog-validators';
 
 @Component({
   selector: 'app-blog-post-edit-dialog',
@@ -51,6 +51,7 @@ export class BlogPostEditDialogComponent extends BaseEditDialogComponent impleme
     this.isEditMode = !!this.data?.id;
     this.postForm = BlogPostValidators.createPostForm(this.fb, this.data);
   }
+
   onSubmit(): void {
     if (this.postForm.valid) {
       const updatedData = {
