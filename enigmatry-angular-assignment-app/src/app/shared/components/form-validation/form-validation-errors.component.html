@@ -1,0 +1,9 @@
+<mat-error *ngIf="shouldShowError('required')">
+    {{ labels.required(fieldLabel) }}
+</mat-error>
+<mat-error *ngIf="shouldShowError('maxlength')">
+    {{ labels.maxLength(fieldLabel, maxLength) }}
+</mat-error>
+<mat-error *ngIf="shouldShowError('pattern')">
+    {{ labels.pattern(fieldLabel) }}
+</mat-error>

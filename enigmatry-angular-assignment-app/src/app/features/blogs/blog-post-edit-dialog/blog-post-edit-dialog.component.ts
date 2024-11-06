@@ -1,11 +1,14 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BlogPost, BlogPostsClient } from '@api';
 import { BaseEditDialogComponent } from '@shared/components/dialog/base-edit-dialog/base-edit-dialog.component';
 import { BlogCategoryService } from '@shared/services/blog-category.service';
 import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-dialog-constants';
-import { getBlogPostEditDialogLabels } from './models/blog-post-edit-dialog-extensions';
+
+import { getBlogPostEditDialogLabels } from './models/blog-post-edit-labels';
+import { BlogPostValidationMessages } from './models/blog-post-edit-validation-messages';
+import { BlogPostValidators } from './models/blog-post-edit-validators';
 
 @Component({
   selector: 'app-blog-post-edit-dialog',
@@ -23,12 +26,7 @@ export class BlogPostEditDialogComponent extends BaseEditDialogComponent impleme
 
   readonly labels = {
     ...getBlogPostEditDialogLabels(),
-    required: (propertyName: string) =>
-      $localize`:@@validators.required:${propertyName}:property-name: is required`,
-    maxLength: (propertyName: string, maxLength: number) =>
-      $localize`:@@validators.maxLength:${propertyName}:property-name: value should be less than ${maxLength}:max-value: characters`,
-    pattern: (propertyName: string) =>
-      $localize`:@@validators.pattern:${propertyName}:property-name: is not in valid format`
+    ...BlogPostValidationMessages.getValidationMessages()
   };
 
   constructor(
@@ -51,27 +49,8 @@ export class BlogPostEditDialogComponent extends BaseEditDialogComponent impleme
 
   private initializeForm(): void {
     this.isEditMode = !!this.data?.id;
-    this.postForm = this.fb.group({
-      title: [
-        this.data?.title ?? '',
-        [
-          Validators.required,
-          Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TITLE_MAX_LENGTH),
-          Validators.pattern('^[a-zA-Z0-9 ]+$')
-        ]
-      ],
-      text: [
-        this.data?.text ?? '',
-        [
-          Validators.required,
-          Validators.maxLength(BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH)
-        ]
-      ],
-      createdOn: [this.data?.createdOn || new Date()],
-      categories: [this.data?.categories || []]
-    });
+    this.postForm = BlogPostValidators.createPostForm(this.fb, this.data);
   }
-
   onSubmit(): void {
     if (this.postForm.valid) {
       const updatedData = {
