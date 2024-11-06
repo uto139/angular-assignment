@@ -8,16 +8,16 @@
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>{{ labels.titleLabel }}</mat-label>
       <input matInput formControlName="title" [placeholder]="labels.titleLabel" />
+      <app-form-validation-errors [control]="postForm.get('title')" [fieldLabel]="labels.titleLabel" [labels]="labels"
+      [maxLength]="titleMaxLength"></app-form-validation-errors>
     </mat-form-field>
-    <app-form-validation-errors [control]="postForm.get('title')" [fieldLabel]="labels.titleLabel" [labels]="labels"
-    [maxLength]="titleMaxLength"></app-form-validation-errors>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>{{ labels.textLabel }}</mat-label>
-      <textarea matInput formControlName="text" [placeholder]="labels.textLabel" style="min-height: 150px;"></textarea>
+      <textarea matInput formControlName="text" [placeholder]="labels.textLabel"></textarea>
+      <app-form-validation-errors [control]="postForm.get('text')" [fieldLabel]="labels.textLabel" [labels]="labels"
+      [maxLength]="textMaxLength"></app-form-validation-errors>
     </mat-form-field>
-    <app-form-validation-errors [control]="postForm.get('text')" [fieldLabel]="labels.textLabel" [labels]="labels"
-    [maxLength]="textMaxLength"></app-form-validation-errors>
 
     <mat-form-field *ngIf="isEditMode" appearance="fill" class="full-width">
       <mat-label>{{ labels.categoriesLabel }}</mat-label>
