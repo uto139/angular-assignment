@@ -30,8 +30,6 @@ export const getCurrentLanguage = (): Language => {
   }
 
   // Fallback to any language
-  // eslint-disable-next-line no-console
-  console.log('Default language is not set. Falling back to EN.');
   return 'en';
 };
 
