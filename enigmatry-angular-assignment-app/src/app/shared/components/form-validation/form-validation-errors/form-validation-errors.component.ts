@@ -11,7 +11,7 @@ export class FormValidationErrorsComponent {
   @Input() labels: any;
   @Input() maxLength?: number;
 
-  shouldShowError(errorKey: string): boolean | undefined {
+  readonly shouldShowError = (errorKey: string) => {
     return this.control?.hasError(errorKey) && this.control?.touched;
-  }
+  };
 }

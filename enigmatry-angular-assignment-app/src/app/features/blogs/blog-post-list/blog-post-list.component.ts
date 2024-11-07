@@ -11,11 +11,11 @@ export class BlogPostListComponent {
   @Input() posts: GetBlogPostsResponse[];
   @Output() postUpdated = new EventEmitter<void>();
 
-  onDeleted(deletedPost: GetBlogPostsResponse): void {
+  readonly onDeleted = (deletedPost: GetBlogPostsResponse) => {
     this.posts = this.posts.filter(post => post.id !== deletedPost.id);
-  }
+  };
 
-  onUpdated() {
+  readonly onUpdated = () => {
     this.postUpdated.emit();
-  }
+  };
 }

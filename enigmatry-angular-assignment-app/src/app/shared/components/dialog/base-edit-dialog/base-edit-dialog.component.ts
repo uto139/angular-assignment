@@ -13,9 +13,9 @@ export class BaseEditDialogComponent {
   @Output() cancel = new EventEmitter<void>();
 
   onCancel() {
- this.cancel.emit();
-}
+    this.cancel.emit();
+  }
   onSubmit() {
- this.post.emit();
-}
+    this.post.emit();
+  }
 }

@@ -47,12 +47,12 @@ export class BlogPostEditDialogComponent extends BaseEditDialogComponent impleme
     }));
   }
 
-  private initializeForm(): void {
+  private readonly initializeForm = () => {
     this.isEditMode = !!this.data?.id;
     this.postForm = BlogPostValidators.createPostForm(this.fb, this.data);
-  }
+  };
 
-  onSubmit(): void {
+  readonly onSubmit = () => {
     if (this.postForm.valid) {
       const updatedData = {
         id: this.data?.id,
@@ -63,10 +63,10 @@ export class BlogPostEditDialogComponent extends BaseEditDialogComponent impleme
         this.post.emit();
       });
     }
-  }
+  };
 
-  onCancel(): void {
+  readonly onCancel = () => {
     this.dialogRef.close();
     this.cancel.emit();
-  }
+  };
 }

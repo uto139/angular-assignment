@@ -31,19 +31,19 @@ export class BlogComponent implements OnInit {
     });
   }
 
-  loadPosts(): void {
+  readonly loadPosts = () => {
     const keyword = this.query.keyword.value;
     const category = this.query.category.value;
     this.client.search(keyword, category).subscribe(response => {
       this.posts = response;
     });
-  }
+  };
 
-  openCreateDialog(): void {
+  readonly openCreateDialog = () => {
     this.blogPostDialogService.openCreateDialog().subscribe(result => {
       if (result) {
         this.loadPosts();
       }
     });
-  }
+  };
 }

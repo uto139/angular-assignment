@@ -32,7 +32,6 @@
     "route.profile": "Profile",
     "side-menu.categories.title": "Blogcategorieën",
     "validators.maxLength": "De waarde van {$property-name} moet minder zijn dan {$max-value} tekens",
-    "validators.minLength": "{$property-name} moet minstens {$min-value} tekens bevatten",
     "validators.pattern": "{$property-name} heeft geen geldig formaat",
     "validators.required": "{$property-name} is verplicht"
   }
