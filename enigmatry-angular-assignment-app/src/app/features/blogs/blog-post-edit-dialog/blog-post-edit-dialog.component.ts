@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BlogPost, BlogPostsClient } from '@api';
 import { BaseEditDialogComponent } from '@shared/components/dialog/base-edit-dialog/base-edit-dialog.component';
+import { BlogCategoryItem } from '@shared/components/navigation/model/blog-category-menu-item.model';
 import { BlogCategoryService } from '@shared/services/blog-category.service';
 import { BLOG_POST_DIALOG_CONSTANTS } from './blog-post-dialog-constants';
 
@@ -19,7 +20,7 @@ import { BlogPostValidators } from './extensions/blog-post-edit-dialog-validator
 export class BlogPostEditDialogComponent extends BaseEditDialogComponent implements OnInit {
   postForm: FormGroup;
   isEditMode: boolean;
-  categories: any[] = [];
+  categories: BlogCategoryItem[] = [];
 
   titleMaxLength = BLOG_POST_DIALOG_CONSTANTS.TITLE_MAX_LENGTH;
   textMaxLength = BLOG_POST_DIALOG_CONSTANTS.TEXT_MAX_LENGTH;
@@ -41,10 +42,7 @@ export class BlogPostEditDialogComponent extends BaseEditDialogComponent impleme
   }
 
   ngOnInit(): void {
-    this.categories = this.categoryService.getCategories().map(category => ({
-      value: category.value,
-      displayName: category.displayName
-    }));
+    this.categories = this.categoryService.getCategories();
   }
 
   private readonly initializeForm = () => {
