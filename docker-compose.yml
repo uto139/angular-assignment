@@ -1,0 +1,9 @@
+services:
+  enigmatry.angularassignment.api:
+    image: ${DOCKER_REGISTRY-}enigmatryangularassignmentapi
+    build:
+      context: .
+      dockerfile: Enigmatry.AngularAssignment/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"

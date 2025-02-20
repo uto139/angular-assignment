@@ -1,10 +1,7 @@
-﻿using Enigmatry.AngularAssignment.Api;
-using Enigmatry.AngularAssignment.Api.Filters;
-using Enigmatry.AngularAssignment.Api.Models.BlogPosts;
+﻿using System.Reflection;
+using Enigmatry.AngularAssignment.Api;
 using Enigmatry.AngularAssignment.Api.Services.BlogPosts;
 using Enigmatry.AngularAssignment.Api.Services.Profiles;
-using Microsoft.Extensions.Options;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +15,9 @@ builder.Services.AddSwagger();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddBlogPosts();
-
 builder.Services.AddSingleton<BlogPostService>();
 builder.Services.AddSingleton<ProfileService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

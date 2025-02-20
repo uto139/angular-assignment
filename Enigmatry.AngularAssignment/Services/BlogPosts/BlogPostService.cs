@@ -3,6 +3,7 @@ using Enigmatry.AngularAssignment.Api.Features.BlogPosts;
 using Enigmatry.AngularAssignment.Api.Models.BlogPosts;
 
 namespace Enigmatry.AngularAssignment.Api.Services.BlogPosts;
+
 public class BlogPostService
 {
     private readonly List<BlogPost> _blogPosts;
