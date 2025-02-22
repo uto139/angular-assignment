@@ -27,7 +27,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
     app.UseCors(builder => builder
-    .WithOrigins("http://localhost:4200", "https://localhost:7258/swagger/index.html")
+    .WithOrigins(
+        "http://localhost:4200",
+        "http://localhost:8080", // containerized FE app
+        "https://localhost:7258/swagger/index.html")
     .AllowCredentials()
     .AllowAnyMethod()
     .AllowAnyHeader());
